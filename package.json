@@ -6,9 +6,9 @@
   "author": "Sacramentix <benji.u1225u@gmail.com>",
   "private": false,
   "scripts": {
-    "dev": "quasar dev",
-    "build": "quasar build",
-    "start": "quasar build && quasar serve --history"
+    "dev": "quasar dev -m pwa",
+    "build": "quasar build -m pwa",
+    "start": "quasar build -m pwa && quasar serve --history"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
@@ -26,7 +26,14 @@
     "@quasar/app-vite": "^1.0.0",
     "@types/node": "^12.20.21",
     "autoprefixer": "^10.4.2",
-    "typescript": "^4.5.4"
+    "typescript": "^4.5.4",
+    "workbox-build": "^6.5.3",
+    "workbox-cacheable-response": "^6.5.3",
+    "workbox-core": "^6.5.3",
+    "workbox-expiration": "^6.5.3",
+    "workbox-precaching": "^6.5.3",
+    "workbox-routing": "^6.5.3",
+    "workbox-strategies": "^6.5.3"
   },
   "engines": {
     "node": "^18 || ^16 || ^14.19",
