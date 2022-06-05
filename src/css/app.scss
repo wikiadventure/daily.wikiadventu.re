@@ -1,0 +1,15 @@
+// app global css in SCSS form
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #q-app {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+#q-app {
+  overflow-y: auto;
+}
