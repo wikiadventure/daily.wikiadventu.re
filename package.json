@@ -7,7 +7,8 @@
   "private": false,
   "scripts": {
     "dev": "quasar dev",
-    "build": "quasar build -m pwa"
+    "build": "quasar build",
+    "start": "quasar build && quasar serve --history"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
