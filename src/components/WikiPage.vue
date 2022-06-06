@@ -24,6 +24,7 @@ import { nextTick, reactive, ref } from "vue";
 import { shadow_root, shadow_style } from "vue-shadow-dom";
 import { Lang } from "src/boot/i18n";
 import WikiPageCss from "./WikiPage.scss";
+import { wikiLang } from './form/wikiLang';
 
 const props = defineProps({
   disable: Boolean,
@@ -55,7 +56,7 @@ async function requestWikiPage(url: string) {
     if (loading.value) return;
     loading.value = true;
     safeModeInterrupted.value = true;
-    await fetchArticle(url)
+    await fetchArticle(url, wi)
       .then(a => {
         setTimeout(()=>{
           nextTick().then(() => {
@@ -125,7 +126,7 @@ function onLinkClick(link: HTMLAnchorElement) {
 
 async function fetchArticle(title: string) {
   safeModeInterrupted.value = false;
-  return await wikiPage.fetch(title, Lang.fr, true);
+  return await wikiPage.fetch(title, wikiLang.value as Lang, true);
 }
 
 function scrollToAnchor(id: string) {
