@@ -109,9 +109,9 @@ var cancel = new AbortController();
 
 onMounted(() => {
     touchSurface = root.value;
-    touchSurface?.addEventListener("touchstart", touchStart, false);
-    touchSurface?.addEventListener("touchmove", touchMove, false);
-    touchSurface?.addEventListener("touchend", touchEnd, false);
+    touchSurface?.addEventListener("touchstart", touchStart, {passive: true});
+    touchSurface?.addEventListener("touchmove", touchMove, {passive: true});
+    touchSurface?.addEventListener("touchend", touchEnd, {passive: true});
     leftElement = left.value;
     rightElement = right.value;
     changeState(state.value);
