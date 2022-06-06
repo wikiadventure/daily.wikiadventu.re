@@ -8,6 +8,7 @@
       <head v-html="wikiPage.head?.innerHTML"> </head>
       <body ref="wiki" :class="{ disable: props.disable }">
         <h1 class="wiki-title">{{ props.title }}</h1>
+        <h2 class="wiki-title">{{ wikiPage.title }}</h2>
         <div class="mw-parser-output" v-html="wikiPage.doc?.body.firstElementChild!.innerHTML">
 
         </div>
