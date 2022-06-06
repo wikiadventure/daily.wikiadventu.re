@@ -23,7 +23,9 @@
         </q-popup-proxy>
       </q-field>
     </form>
-    <q-btn push :label="t('start')" @click="start()" icon="mdi-check-bold" />
+    <q-btn push :label="t('start')" @click="start()">
+        <mdi-check-bold/>
+    </q-btn>
     <section>
       <div>
         <p>{{ t('contribution.discord') }}</p>
@@ -153,7 +155,7 @@ import GithubBtn from "src/components/button/GithubBtn.vue";
 import NanoBtn from "src/components/button/NanoBtn.vue";
 import KofiBtn from "src/components/button/KofiBtn.vue";
 import DiscordBtn from "src/components/button/DiscordBtn.vue";
-
+import MdiCheckBold from '~icons/mdi/check-bold';
 
 const { t } = useI18n({ useScope: "local" });
 const $q = useQuasar();
