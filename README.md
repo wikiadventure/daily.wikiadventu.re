@@ -1,5 +1,5 @@
 <h1 align="center">
-	<a href="https://daily.wikiadventu.re"><img width=402 height=250 src="front/public/svg/openGraph.svg" alt="Wiki Adventure"/></a>
+	<a href="https://daily.wikiadventu.re"><img width=402 height=250 src="https://cdn.statically.io/gh/Sacramentix/WikiAdventure/master/front/public/svg/openGraph.svg" alt="Wiki Adventure"/></a>
 </h1>
 
 <p align="center">
