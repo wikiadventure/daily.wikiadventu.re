@@ -8,7 +8,7 @@
     margin: 0 15px 5px;
     border-radius: 5px;
     background: #7289DA;
-    color: #eee;
+    color: #fff;
 }
 </style>
 <script lang="ts" setup>
