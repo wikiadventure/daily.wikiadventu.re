@@ -2,7 +2,7 @@
   <q-select
     class="wiki-lang-select"
     v-model="wikiLang" name="wikiLang" outlined hint=""
-    :options="langOptions()" :label="t('wikiLang')"
+    :options="langOptions(dailyAvailableIn)" :label="t('wikiLang')"
     :display-value="getLabel(wikiLang)" emit-value map-options
     :dense="$q.screen.lt.sm" v-bind="$attrs"
   >
@@ -14,9 +14,14 @@
 }
 </style>
 <script lang="ts" setup>
-import { langOptions, getLabel } from 'src/boot/i18n';
+import { langOptions, getLabel, Lang } from 'src/boot/i18n';
 import { useI18n } from 'vue-i18n';
 import { wikiLang } from "./wikiLang";
+
+const dailyAvailableIn = [
+    Lang.en,
+    Lang.fr
+]
 
 const { t } = useI18n({ useScope: 'local' });
 </script>
