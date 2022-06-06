@@ -170,7 +170,7 @@ const wikiUrl = (t:string) => `https://${lang.value}.wikipedia.org/wiki/${encode
 function shareResult() {
     share({
         title: t('shareTitle'),
-        text: `${startPage.value} → ${endPage.value}\n ${path.length-1} ${t('linkInTime', path.length-1)} ${time} s`,
+        text: `${startPage.value} → ${endPage.value}\n ${path.length-1} ${t('linkInTime', path.length-1)} ${time.value} s`,
         url: shareURL,
     })
 }
