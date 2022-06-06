@@ -27,7 +27,7 @@
 </template>
 <style lang="scss">
 .daily-result {
-
+    overflow-x: hidden;
     width: 100%;
     min-height: 100%;
     display: flex;
