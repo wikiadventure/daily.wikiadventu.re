@@ -1,4 +1,5 @@
 import { copyToClipboard, Notify } from 'quasar';
+
 export function CopyToClipboard(toCopy:string, onSuccessMessage:string, onFailMessage:string) {
 
     copyToClipboard(toCopy)

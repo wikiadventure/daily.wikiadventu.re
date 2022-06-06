@@ -27,27 +27,19 @@
     <section>
       <div>
         <p>{{ t('contribution.discord') }}</p>
-        <q-btn push icon="mdi-discord" class="discord" size="2em" label="Discord" type="a" href="https://discord.gg/wRN6Dam" />
+        <discord-btn/>
       </div>
       <div>
         <p>{{ t('contribution.github') }}</p>
-        <q-btn push icon="mdi-github" class="github" size="2em" label="Github" type="a" href="https://github.com/Sacramentix/WikiAdventure" target="_blank"/>
+        <github-btn/>
       </div>
       <div>
         <p>{{ t('contribution.kofi') }}</p>
-        <q-btn push class="kofi" size="2em" type="a" href="https://ko-fi.com/sacramentix">
-          <img src="~assets/icons/kofi.svg" alt="Kofi logo" />
-          <span class="block">Ko-fi</span>
-        </q-btn>
+        <kofi-btn/>
       </div>
       <div>
         <p>{{ t('contribution.nano') }}</p>
-        <!-- <img src="../assets/icons/nano.svg" class="nano" alt="The nano currency logo" /> -->
-        <q-btn push class="nano" size="2em" type="btn">
-          <img src="~assets/icons/nano.svg" alt="nano currency logo" />
-          <span class="block">Nano</span>
-          <wallet-proxy/>
-        </q-btn>
+        <nano-btn/>
       </div>
       <!-- <wallet-dialog v-model="showNano"/> -->
     </section>
@@ -65,10 +57,6 @@
   </main>
 </template>
 <style lang="scss">
-
-html {
-  overflow: hidden;
-}
 .Home.select {
   min-height: 100vh;
   display: flex;
@@ -100,35 +88,6 @@ html {
     > * {
       min-width: 26ch;
     }
-  }
-
-  .github {
-    background: #000;
-    color: #eee;
-  }
-  .discord {
-    background: #7289DA;
-    color: #eee;
-  }
-  .kofi {
-    background: #29abe0;
-    color: #fff;
-    img {
-      width: 2em;
-      margin-right: 12px;
-    }
-  }
-  .nano {
-    background: #fff;
-    color: #4a90e2;
-    img {
-      width: 2em;
-      margin-right: 12px;
-    }
-  }
-  .github, .discord, .nano, .kofi {
-    margin: 0 15px 5px;
-    border-radius: 5px;
   }
 
 }
@@ -190,7 +149,11 @@ import { useTimer } from "src/composables/useTimer";
 import TouchSlide, { OpenState } from "src/components/layouts/TouchSlide.vue";
 import CompactLangSwitch from 'src/components/setting/CompactLangSwitch.vue';
 import ThemeSwitch from 'src/components/setting/ThemeSwitch.vue';
-import WalletProxy from "src/components/extra/WalletProxy.vue";
+import GithubBtn from "src/components/button/GithubBtn.vue";
+import NanoBtn from "src/components/button/NanoBtn.vue";
+import KofiBtn from "src/components/button/KofiBtn.vue";
+import DiscordBtn from "src/components/button/DiscordBtn.vue";
+
 
 const { t } = useI18n({ useScope: "local" });
 const $q = useQuasar();
@@ -206,8 +169,6 @@ const now = new Date();
 const z = (n:number, p:number) => String(n).padStart(p, '0');
 const currentDate = `${z(now.getUTCFullYear(),4)}/${z(now.getUTCMonth()+1,2)}/${z(now.getUTCDate(),2)}`;
 const formatDate = ref(currentDate.slice());
-
-
 
 const {
   timeController,
@@ -227,7 +188,6 @@ const startPage = ref("");
 const endPage = ref("");
 
 const apiUrl = route.query.apiUrl as string;
-console.log("ApiUrl", apiUrl);
 
 const startPageF = computed(()=> decodeURI(startPage.value).replace(/_/g," "));
 const targetPageF = computed(()=> decodeURI(endPage.value).replace(/_/g," "));
@@ -242,7 +202,6 @@ function onWikiLink(url: string) {
 }
 
 function onWin() {
-    alert("JaaJ");
     router.push(`/result/${wikiLang.value}?time=${time.value}&path=${history.value.map(s=>encodeURIComponent(s)).join("|")}`)
 }
 

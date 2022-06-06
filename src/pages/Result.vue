@@ -1,15 +1,21 @@
 <template>
     <div class="daily-result">
-        <!-- <compact-lang-switch  class="absolute-top-left q-ma-sm"/>
-        <theme-switch class="absolute-top-right q-ma-sm" /> -->
+        <compact-lang-switch  class="absolute-top-left q-ma-sm"/>
+        <!-- <theme-switch class="absolute-top-right q-ma-sm" /> -->
         <LogoShowIn />
         <h2>Daily</h2>
         <h3>{{ startPage }} → {{ endPage }}</h3>
         <p>{{ path.length-1 }} {{ t('linkInTime', path.length-1) }} {{ formatTime }}</p>
         <div class="action">
-           <q-btn v-if="isSupported" push class="action-btn" @click="shareResult" :label="t('share')" icon="mdi-share-variant"/>
-           <q-btn push class="action-btn" @click="copyLink" :label="t('copyShare')" icon="mdi-share-variant"/>
-           <q-btn push class="action-btn" to="/" :label="t('play')" icon="mdi-play"/>
+            <q-btn v-if="isSupported" push @click="shareResult">
+                {{ t('share') }} <mdi-share-variant/>
+            </q-btn>
+            <q-btn push @click="copyLink">
+                {{ t('copyShare') }} <mdi-share-variant/>
+            </q-btn>
+            <q-btn push class="action-btn" to="/">
+                {{ t('play') }} <mdi-play/>
+            </q-btn>
         </div>
         <section>
             <div v-if="loading" loader></div>
@@ -106,11 +112,12 @@ import WikiPreview from "src/components/WikiPreview.vue";
 import type { WikiPreview as WikiPagePreview } from "src/composables/useWiki";
 // import ThemeSwitch from "src/components/setting/ThemeSwitch.vue";
 import { useI18n } from "vue-i18n";
-// import CompactLangSwitch from "src/components/setting/CompactLangSwitch.vue";
+import CompactLangSwitch from "src/components/setting/CompactLangSwitch.vue";
 import { Lang } from "src/boot/i18n";
 import { loadPreviews } from "src/composables/useWiki";
-import { copyToClipboard, Notify } from "quasar";
 import { CopyToClipboard } from '../composables/utils/CopyToClipboard';
+import mdiShareVariant from "~icons/mdi/share-variant";
+import mdiPlay from "~icons/mdi/play";
 
 const { t } = useI18n({ useScope: 'local' });
 
@@ -173,6 +180,7 @@ function copyLink() {
 }
 
 </script>
+
 <i18n lang="yaml">
   en:
     share: "Share"

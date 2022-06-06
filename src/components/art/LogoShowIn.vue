@@ -2,10 +2,10 @@
   <div class="logo-show-in">
     <div class="zTransform">
       <div class="logo">
-        <img :src="logoUrl" alt="wikipedia logo"/>
+        <img :src="logoUrl" alt="wikipedia logo" width="37" height="32"/>
       </div>
     </div>
-    <img v-if="title == null" class="title" :src="titleUrl" alt="WikiAdventure"/>
+    <img v-if="title == null" class="title" :src="titleUrl" alt="WikiAdventure" width="2171" height="588"/>
     <div v-else class="title"><p>{{ title }}</p></div>
   </div>
 </template>
@@ -46,7 +46,7 @@
       animation: 1.5s cubic-bezier(0, 1, 1, 1) 0.8s logo-fast-spin;
     }
   }
-  
+
   .title {
     position: absolute;
     bottom: 2%;
@@ -54,7 +54,7 @@
     transform: scale3d(1,1,1);
     animation: 6s ease-out 0.8s logo-blur-fade-in;
     will-change: transform;
-    
+
   }
 
   .title p {

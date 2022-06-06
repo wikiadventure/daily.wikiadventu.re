@@ -1,28 +1,9 @@
 {
-  "editor.bracketPairColorization.enabled": true,
-  "editor.guides.bracketPairs": true,
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "i18n-ally.enabledFrameworks": [
-    "vue-sfc",
-    "vue",
-    "vscode"
-  ],
-  "i18n-ally.localesPaths": [
-    "src/i18n",
-    "front/src/lang"
-  ],
-  "i18n-ally.extract.ignoredByFiles": {
-    "src\\components\\layouts\\TouchSlide.vue": [
-      "translate3d(clamp(0px, calc(100% + ${dist}px + ${minSwipe}px), 100%), 0, 0)",
-      "translate3d(clamp(-100%, calc(-100% + ${dist}px + -${minSwipe}px), 0px), 0, 0)"
-    ],
-    "src\\pages\\Home.vue": [
-      "Nano",
-      "nano currency logo",
-      "Kofi logo",
-      "Github",
-      "Discord",
-      "|"
-    ]
-  }
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": true,
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "i18n-ally.sourceLanguage": "en",
+    "i18n-ally.keystyle": "nested",
+    "i18n-ally.enabledFrameworks": ["vue-sfc", "vue", "vscode"],
+    "i18n-ally.localesPaths": ["src/i18n"]
 }

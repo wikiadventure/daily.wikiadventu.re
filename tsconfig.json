@@ -37,5 +37,8 @@
     "src-pwa/*.d.ts",
     "src-bex/*.d.ts",
     "src-ssr/*.d.ts"
+  ],
+  "types": [
+    "unplugin-icons/types/vue",
   ]
 }

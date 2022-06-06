@@ -4,7 +4,7 @@
     dense standout emit-value
     v-bind="$attrs" behavior="dialog">
     <template v-slot:prepend>
-      <q-icon name="mdi-translate"></q-icon>
+        <mdi-translate/>
     </template>
   </q-select>
 </template>
@@ -24,6 +24,7 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
 import { langOptions, translatedLang } from '../../boot/i18n';
+import MdiTranslate from '~icons/mdi/translate';
 
 const { locale } = useI18n({ useScope: 'global' });
 </script>
