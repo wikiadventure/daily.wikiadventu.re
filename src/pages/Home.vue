@@ -26,6 +26,7 @@
     <q-btn push :label="t('start')" @click="start()">
         <mdi-check-bold/>
     </q-btn>
+    <News/>
     <section>
       <div>
         <p>{{ t('contribution.discord') }}</p>
@@ -60,6 +61,7 @@
 </template>
 <style lang="scss">
 .Home.select {
+    overflow-x: hidden;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -156,6 +158,7 @@ import NanoBtn from "src/components/button/NanoBtn.vue";
 import KofiBtn from "src/components/button/KofiBtn.vue";
 import DiscordBtn from "src/components/button/DiscordBtn.vue";
 import MdiCheckBold from '~icons/mdi/check-bold';
+import News from "src/components/extra/News.vue";
 
 const { t } = useI18n({ useScope: "local" });
 const $q = useQuasar();
