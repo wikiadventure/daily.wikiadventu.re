@@ -56,7 +56,7 @@ async function requestWikiPage(url: string) {
     if (loading.value) return;
     loading.value = true;
     safeModeInterrupted.value = true;
-    await fetchArticle(url, wi)
+    await fetchArticle(url)
       .then(a => {
         setTimeout(()=>{
           nextTick().then(() => {
