@@ -22,7 +22,9 @@
             />
             </q-popup-proxy>
         </q-field>
-        <!-- <q-checkbox class="reverse-check" v-model="reverse" label="Reverse" /> -->
+        <q-field outlined :dense="$q.screen.lt.sm" stack-label>
+            <q-checkbox v-model="reverse" label="Reverse" />
+        </q-field>
     </form>
     <q-btn push :label="t('start')" @click="start()">
         <mdi-check-bold/>
@@ -45,7 +47,6 @@
         <p>{{ t('contribution.nano') }}</p>
         <nano-btn/>
       </div>
-      <!-- <wallet-dialog v-model="showNano"/> -->
     </section>
   </main>
   <main class="Home play" v-show="!isMenu">
@@ -236,6 +237,7 @@ function start() {
                 });
             }
             [startPage.value, endPage.value] = text.split(/\r*\n/g);
+            if (reverse.value) [startPage.value, endPage.value] = [endPage.value, startPage.value];
             isMenu.value = false;
             wikiPage.value!.requestWikiPage(decodeURI(startPage.value))
                 .then(() => {

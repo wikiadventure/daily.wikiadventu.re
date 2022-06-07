@@ -1,8 +1,10 @@
 <template>
-    <h3>{{ t('news') }}</h3>
-    <p>
-        {{ t('content') }}
-    </p>
+    <section>
+        <h3>{{ t('news') }}</h3>
+        <p>
+            {{ t('content') }}
+        </p>
+    </section>
 </template>
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
@@ -11,9 +13,9 @@ const { t } = useI18n({ useScope: 'local' });
 <i18n lang="yaml">
   en:
     news: "News"
-    content: "Fix win conditions to be check after redirection \n Dark mode coming soon!"
+    content: "Dark mode coming soon!"
   fr:
     news: "News"
-    content: "Correction de la vérification de la conditions de victoire après redirection \n Le thème sombre arrive bientôt!"
+    content: "Le thème sombre arrive bientôt!"
 </i18n>
 
