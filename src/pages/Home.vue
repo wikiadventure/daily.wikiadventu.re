@@ -208,7 +208,7 @@ const history = ref<string[]>([]);
 
 function onWikiLink(url: string) {
     history.value.push(url);
-    if (url == decodeURI(endPage.value)) {
+    if (url.replaceAll(/\s/g, "_") == decodeURI(endPage.value)) {
         onWin();
     }
 }
