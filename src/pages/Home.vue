@@ -7,21 +7,22 @@
     <p>{{ t("explanation") }}</p>
     <p>{{ t("shortcut" + ($q.platform.is.mobile ? "Mobile" : "")) }}</p>
     <form>
-      <WikiLangSelect />
-      <q-field outlined :dense="$q.screen.lt.sm" label="Date" stack-label>
-        <template v-slot:prepend>
-          <q-icon name="event" />
-        </template>
-        <template v-slot:control>
-          <div class="self-center full-width no-outline" tabindex="0">{{formatDate}}</div>
-        </template>
-        <q-popup-proxy>
-          <q-date
-            v-model="formatDate"
-            :options="date => date <= currentDate"
-          />
-        </q-popup-proxy>
-      </q-field>
+        <WikiLangSelect :dense="$q.screen.lt.sm" />
+        <q-field outlined :dense="$q.screen.lt.sm" label="Date" stack-label>
+            <template v-slot:prepend>
+                <q-icon name="event" />
+            </template>
+            <template v-slot:control>
+                <div class="self-center full-width no-outline" tabindex="0">{{formatDate}}</div>
+            </template>
+            <q-popup-proxy>
+            <q-date
+                v-model="formatDate"
+                :options="date => date <= currentDate"
+            />
+            </q-popup-proxy>
+        </q-field>
+        <q-checkbox class="reverse-check" v-model="reverse" label="Reverse" />
     </form>
     <q-btn push :label="t('start')" @click="start()">
         <mdi-check-bold/>
@@ -68,6 +69,11 @@
   flex-direction: column;
   padding: 15px;
   gap: 15px;
+  .reverse-check {
+      justify-content: center;
+      border: 1px solid rgba(0, 0, 0, 0.24);
+      border-radius: 4px;
+  }
   .logo-show-in {
     --logo-height: min(8em, 25vw);
   }
@@ -165,6 +171,7 @@ const $q = useQuasar();
 const router = useRouter();
 const route = useRoute();
 
+const reverse = ref(false);
 const isMenu = ref(true);
 const wikiPage = ref<InstanceType<typeof WikiPage>>();
 const wikiTargetPage = ref<InstanceType<typeof WikiPage>>();
@@ -232,7 +239,6 @@ function start() {
             isMenu.value = false;
             wikiPage.value!.requestWikiPage(decodeURI(startPage.value))
                 .then(() => {
-                    history.value.push(startPage.value);
                     startTimer();
                 });
             wikiTargetPage.value!.requestWikiPage(decodeURI(endPage.value));

@@ -60,6 +60,7 @@ async function requestWikiPage(url: string) {
       .then(a => {
         setTimeout(()=>{
           nextTick().then(() => {
+            emit("wikiLink", wikiPage.title);
             redirectLinks(wiki.value);
             loading.value = false;
             resolve();
@@ -114,7 +115,6 @@ function onLinkClick(link: HTMLAnchorElement) {
     var anchor = url.indexOf("#");
     if (anchor != -1) url = url.substring(0, anchor);
     url = decodeURIComponent(url);
-    emit("wikiLink", url);
     requestWikiPage(url).then(() => {
       if (anchor != -1) scrollToAnchor(url.substring(anchor + 1));
       else wiki.value?.scrollTo(0, 0);
