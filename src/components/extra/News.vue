@@ -11,9 +11,13 @@ const { t } = useI18n({ useScope: 'local' });
 <i18n lang="yaml">
   en:
     news: "News"
-    content: "Dark mode coming soon!"
+    content: |
+        Fix win conditions to be check after redirection
+        Dark mode coming soon!
   fr:
     news: "News"
-    content: "Le thème sombre arrive bientôt!"
+    content: |
+    Correction de la vérification de la conditions de victoire après redirection
+    Le thème sombre arrive bientôt!
 </i18n>
 
