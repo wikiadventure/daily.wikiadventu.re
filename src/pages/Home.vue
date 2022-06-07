@@ -22,7 +22,7 @@
             />
             </q-popup-proxy>
         </q-field>
-        <q-checkbox class="reverse-check" v-model="reverse" label="Reverse" />
+        <!-- <q-checkbox class="reverse-check" v-model="reverse" label="Reverse" /> -->
     </form>
     <q-btn push :label="t('start')" @click="start()">
         <mdi-check-bold/>
