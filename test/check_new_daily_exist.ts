@@ -2,7 +2,7 @@ import { assert } from "https://deno.land/std@0.146.0/testing/asserts.ts";
 import { stringify } from "https://deno.land/std@0.140.0/node/querystring.ts";
 
 const gitDiff = Deno.run({
-    cmd: ["git", "diff", "--name-only", "HEAD^", " HEAD"],
+    cmd: ["git", "diff", "--name-only", "origin/main", `origin/${Deno.env.get("GITHUB_HEAD_REF")}`],
     stdout: 'piped',
     stderr: 'piped',
     stdin: 'null'
