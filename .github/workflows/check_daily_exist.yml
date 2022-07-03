@@ -1,0 +1,23 @@
+name: Check new daily exist
+
+on:
+  push:
+    branches:
+      - "master"
+    paths: 'public/daily/**'
+  pull_request:
+    branches:
+      - "master"
+    paths: 'public/daily/**'
+
+jobs:     
+  check_duplicates:
+    name: Check if new daily are correct
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: denoland/setup-deno@v1.0.0
+        with:
+          deno-version: v1.x 
+      - name: Deno check duplicate
+        run: deno test --allow-read --allow-net --allow-run test/check_new_daily_exist.ts
