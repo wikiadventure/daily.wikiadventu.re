@@ -9,6 +9,7 @@ const gitDiff = Deno.run({
 });
 await gitDiff.status();
 const files = new TextDecoder().decode(await gitDiff.output()).split(/\r*\n/);
+console.log(files);
 
 for (const file of files) {
     if (file.startsWith("public/daily/")) {
