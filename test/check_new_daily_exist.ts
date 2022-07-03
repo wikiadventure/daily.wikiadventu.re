@@ -1,15 +1,9 @@
 import { assert } from "https://deno.land/std@0.146.0/testing/asserts.ts";
 import { stringify } from "https://deno.land/std@0.140.0/node/querystring.ts";
+import { parse } from "https://deno.land/std/flags/mod.ts";
 
-console.log(Deno.env.get("GITHUB_SHA")+" → "+Deno.env.get("GITHUB_HEAD_REF"));
-const gitDiff = Deno.run({
-    cmd: ["git", "diff", "--name-only", `${Deno.env.get("GITHUB_SHA")}`,  `${Deno.env.get("GITHUB_HEAD_REF")}`],
-    stdout: 'piped',
-    stderr: 'piped',
-    stdin: 'null'
-});
-await gitDiff.status();
-const files = new TextDecoder().decode(await gitDiff.output()).split(/\r*\n/);
+const { f: files } = parse(Deno.args);
+
 console.log(files);
 
 for (const file of files) {
