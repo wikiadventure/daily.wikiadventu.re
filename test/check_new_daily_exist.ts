@@ -1,9 +1,7 @@
 import { assert } from "https://deno.land/std@0.146.0/testing/asserts.ts";
 import { stringify } from "https://deno.land/std@0.140.0/node/querystring.ts";
-import { parse } from "https://deno.land/std/flags/mod.ts";
 
-const { f: files } = parse(Deno.args);
-
+const [files] = Deno.args;
 console.log(files);
 
 for (const file of files) {
