@@ -1,4 +1,4 @@
-name: Check duplicate daily
+name: Check new daily exist
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
 
 jobs:     
   check_duplicates:
-    name: Search for duplicates in daily
+    name: Check if new daily are correct
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,4 +20,4 @@ jobs:
         with:
           deno-version: v1.x 
       - name: Deno check duplicate
-        run: deno test --allow-read test/check_duplicate_daily.ts
+        run: deno test --allow-read --allow-net --allow-run test/check_new_daily_exist.ts
