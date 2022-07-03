@@ -25,4 +25,4 @@ jobs:
         with:
           deno-version: v1.x 
       - name: Deno check daily exist
-        run: deno test --allow-read --allow-net --allow-run --allow-env test/check_new_daily_exist.ts -files ${{ steps.changed-files.outputs.all_changed_files }}
+        run: deno test --allow-read --allow-net --allow-run --allow-env test/check_new_daily_exist.ts -f ${{ steps.changed-files.outputs.all_changed_files }}
