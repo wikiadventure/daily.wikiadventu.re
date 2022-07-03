@@ -1,4 +1,4 @@
-import { assert, assertEquals, assertExists } from "https://deno.land/std@0.146.0/testing/asserts.ts";
+import { assert } from "https://deno.land/std@0.146.0/testing/asserts.ts";
 import {
     walk
 } from "https://deno.land/std@0.144.0/fs/mod.ts";
