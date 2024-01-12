@@ -20,7 +20,8 @@ import { wikiLang } from "./wikiLang";
 
 const dailyAvailableIn = [
     Lang.en,
-    Lang.fr
+    Lang.fr,
+    Lang.de
 ]
 
 const { t } = useI18n({ useScope: 'local' });
@@ -30,4 +31,6 @@ const { t } = useI18n({ useScope: 'local' });
     wikiLang: "Wiki language"
   fr:
     wikiLang: "Langue du wiki"
+  de:
+    wikiLang: "Sprache des Wikis"
 </i18n>
