@@ -34,4 +34,6 @@ const { t } = useI18n({ useScope: 'local' });
     safeModeTooltip: "SafeMode vas flouter les images de wikipédia, vous pouvez les défloutés pour la page en cours avec ctrl + alt + Q"
   de:
     safeModeTooltip: "Im SafeMode wird das Bild von Wikipedia unscharf. Sie können das Bild für die aktuelle Seite mit Strg + Alt + Q unscharf machen"
+  es:
+    safeModeTooltip: "SafeMode desenfocará la imagen de Wikipedia, puedes desenfocar la imagen de la página actual con Ctrl + Alt + Q"
 </i18n>
