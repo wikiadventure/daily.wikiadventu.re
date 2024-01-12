@@ -48,12 +48,16 @@ function copyAddress() {
 
 </script>
 <i18n lang="yaml">
-  en:
-    myNanoAddress: "My Nano address"
-    copySuccess: "Address copied successfully!"
-    copyFail: "Failed to copy the address"
-  fr:
-    myNanoAddress: "Mon adresse Nano"
-    copySuccess: "Adresse copié avec succès!"
-    copyFail: "Échec de la copie de l'adresse"
+    en:
+        myNanoAddress: "My Nano address"
+        copySuccess: "Address copied successfully!"
+        copyFail: "Failed to copy the address"
+    fr:
+        myNanoAddress: "Mon adresse Nano"
+        copySuccess: "Adresse copié avec succès!"
+        copyFail: "Échec de la copie de l'adresse"
+    en:
+        myNanoAddress: "Meine Nano-Adresse"
+        copySuccess: "Adresse erfolgreich kopiert!"
+        copyFail: "Die Adresse könnte nicht kopiert werden"
 </i18n>

@@ -303,4 +303,23 @@ onUnmounted(() => {
             github: "Apporte ta pierre à l'édifice grâce à Github"
             kofi: "Offre moi un café"
             nano: "Partage tes Nano avec moi"
+
+    de:
+        start: "Start"
+        noDaily: "Für diese Sprache ist keine verfügbar"
+        apiError: "The custom daily provider doesn't repect the format"
+        explanation: |
+            Willkommen bei Wiki Adventure Daily! Ziel ist es, durch den folgenden Link von einer Wikipedia-Seite zur nächsten zu gelangen.
+            Versuchen Sie, diese tägliche Herausforderung so schnell wie möglich mit möglichst wenigen Links zu meistern und Ihr Abenteuer mit Ihrem Freund zu teilen!
+
+        shortcut: "Sie können die Zielseite mit Strg + Alt + Leertaste anzeigen."
+        shortcutMobile: "Sie können nach links wischen, um die Zielseite anzuzeigen."
+        targetPage: "Zielseite"
+        openTargetPage: "Zielseite öffnen"
+        closeTargetPage: "Zielseite schließen"
+        contribution:
+            discord: "Finde Freunde zum Spielen auf unserem Discord"
+            github: "Tragen Sie zum Spiel bei"
+            kofi: "Kauf mir einen Kaffee"
+            nano: "Teile deinen Nano mit mir!"
 </i18n>

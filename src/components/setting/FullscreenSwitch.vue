@@ -15,4 +15,6 @@ const { t } = useI18n({ useScope: 'local' });
     fullscreen: "Fullscreen"
   fr:
     fullscreen: "Plein écran"
+  de:
+    fullscreen: "Vollbildmodus"
 </i18n>

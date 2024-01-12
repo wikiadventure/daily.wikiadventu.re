@@ -34,7 +34,8 @@ export function getLabel(lang:string):string {
 
 export const translatedLang = [
     Lang.en,
-    Lang.fr
+    Lang.fr,
+    Lang.de
 ]
 
 export const langLabel = computed(()=>{
