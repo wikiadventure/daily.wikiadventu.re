@@ -60,4 +60,8 @@ function copyAddress() {
         myNanoAddress: "Meine Nano-Adresse"
         copySuccess: "Adresse erfolgreich kopiert!"
         copyFail: "Die Adresse könnte nicht kopiert werden"
+    es:
+        myNanoAddress: "Mi Nano dirección"
+        copySuccess: "¡Dirección copiada exitosamente!"
+        copyFail: "No se pudo copiar la dirección"
 </i18n>

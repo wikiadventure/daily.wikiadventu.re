@@ -20,5 +20,8 @@ const { t } = useI18n({ useScope: 'local' });
   de:
     news: "News"
     content: "Der Dunkelmodus kommt bald!"
+  es:
+    news: "News"
+    content: "¡El modo oscuro llegará pronto!"
 </i18n>
 
