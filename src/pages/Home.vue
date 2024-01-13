@@ -322,7 +322,6 @@ onUnmounted(() => {
             github: "Tragen Sie zum Spiel bei"
             kofi: "Kauf mir einen Kaffee"
             nano: "Teile deinen Nano mit mir!"
-
     es:
         start: "Empecemos"
         noDaily: "No hay daily disponibles para este idioma."
