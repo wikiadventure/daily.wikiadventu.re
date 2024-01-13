@@ -17,5 +17,11 @@ const { t } = useI18n({ useScope: 'local' });
   fr:
     news: "News"
     content: "Le thème sombre arrive bientôt!"
+  de:
+    news: "News"
+    content: "Der Dunkelmodus kommt bald!"
+  es:
+    news: "News"
+    content: "¡El modo oscuro llegará pronto!"
 </i18n>
 

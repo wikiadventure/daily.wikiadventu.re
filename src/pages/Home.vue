@@ -303,4 +303,41 @@ onUnmounted(() => {
             github: "Apporte ta pierre à l'édifice grâce à Github"
             kofi: "Offre moi un café"
             nano: "Partage tes Nano avec moi"
+
+    de:
+        start: "Start"
+        noDaily: "Für diese Sprache ist keine verfügbar"
+        apiError: "The custom daily provider doesn't repect the format"
+        explanation: |
+            Willkommen bei Wiki Adventure Daily! Ziel ist es, durch den folgenden Link von einer Wikipedia-Seite zur nächsten zu gelangen.
+            Versuchen Sie, diese tägliche Herausforderung so schnell wie möglich mit möglichst wenigen Links zu meistern und Ihr Abenteuer mit Ihrem Freund zu teilen!
+
+        shortcut: "Sie können die Zielseite mit Strg + Alt + Leertaste anzeigen."
+        shortcutMobile: "Sie können nach links wischen, um die Zielseite anzuzeigen."
+        targetPage: "Zielseite"
+        openTargetPage: "Zielseite öffnen"
+        closeTargetPage: "Zielseite schließen"
+        contribution:
+            discord: "Finde Freunde zum Spielen auf unserem Discord"
+            github: "Tragen Sie zum Spiel bei"
+            kofi: "Kauf mir einen Kaffee"
+            nano: "Teile deinen Nano mit mir!"
+    es:
+        start: "Empecemos"
+        noDaily: "No hay daily disponibles para este idioma."
+        apiError: "El proveedor daily personalizado no respeta el formato."
+        explanation: |
+            ¡Bienvenidos a Wiki Aventure Daily! El objetivo es pasar de una página de Wikipedia a otra siguiendo el enlace.
+            ¡Intenta terminar este desafío diario lo más rápido que puedas con el menor número de enlaces posible y comparte tu aventura con tu amigo!
+
+        shortcut: "Puedes ver la página de objetivos con Ctrl + Alt + Espacio."
+        shortcutMobile: "Puedes deslizarte hacia la izquierda para ver la página de objetivos."
+        targetPage: "Página de destino"
+        openTargetPage: "Abrir página de destino"
+        closeTargetPage: "Cerrar página de destino"
+        contribution:
+            discord: "Encuentra amigos con quienes jugar en nuestro Discord"
+            github: "Contribuir al juego"
+            kofi: "Cómprame un café"
+            nano: "¡Comparte tu Nano conmigo!"
 </i18n>

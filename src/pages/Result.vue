@@ -182,25 +182,45 @@ function copyLink() {
 </script>
 
 <i18n lang="yaml">
-  en:
-    share: "Share"
-    copyShare: "Copy share link"
-    play: "Play"
-    links: "link | links"
-    linkInTime: '@:links in'
-    pageNotFound: "Page not found on wikipedia"
-    copySuccess: "Link copied successfully!"
-    copyFail: "Failed to copy the link"
-    shareTitle: "My epic on Wiki Adventure Daily"
-  fr:
-    share: "Partager"
-    copyShare: "Copier le lien de partage"
-    play: "Jouer"
-    links: "lien | liens"
-    linkInTime: '@:links en'
-    pageNotFound: "Page introuvable sur Wikipédia"
-    copySuccess: "Lien copié avec succès!"
-    copyFail: "Échec de la copie du lien"
-    shareTitle: "Mon épopée sur Wiki Adventure Daily"
+    en:
+        share: "Share"
+        copyShare: "Copy share link"
+        play: "Play"
+        links: "link | links"
+        linkInTime: '@:links in'
+        pageNotFound: "Page not found on wikipedia"
+        copySuccess: "Link copied successfully!"
+        copyFail: "Failed to copy the link"
+        shareTitle: "My epic on Wiki Adventure Daily"
+    fr:
+        share: "Partager"
+        copyShare: "Copier le lien de partage"
+        play: "Jouer"
+        links: "lien | liens"
+        linkInTime: '@:links en'
+        pageNotFound: "Page introuvable sur Wikipédia"
+        copySuccess: "Lien copié avec succès!"
+        copyFail: "Échec de la copie du lien"
+        shareTitle: "Mon épopée sur Wiki Adventure Daily"
+    de:
+        share: "Teile"
+        copyShare: "Teilen-Link kopieren"
+        play: "Spielen"
+        links: "link | links"
+        linkInTime: '@:links in'
+        pageNotFound: "Seite nicht auf Wikipedia gefunden"
+        copySuccess: "Link erfolgreich kopiert!"
+        copyFail: "Der Link konnte nicht kopiert werden"
+        shareTitle: "Mein Epos auf Wiki Adventure Daily"
+    es:
+        share: "Comparte"
+        copyShare: "Copiar enlace para compartir"
+        play: "Jugar"
+        links: "link | links"
+        linkInTime: '@:links in'
+        pageNotFound: "Página no encontrada en wikipedia"
+        copySuccess: "¡Enlace copiado exitosamente!"
+        copyFail: "No se pudo copiar el enlace"
+        shareTitle: "Mi epopeya en Wiki Adventure Daily"
 </i18n>
 
