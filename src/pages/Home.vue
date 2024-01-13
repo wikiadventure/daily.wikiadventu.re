@@ -274,7 +274,7 @@ onUnmounted(() => {
             Welcome to Wiki Adventure Daily! The goal is to go from 1 wikipedia page to an other by following link.
             Try to finish this daily challenge as fast you can with the fewest link possible and share you adventure with your friend!
 
-        shortcut: "You can see the goal page with ctrl + alt + space ."
+        shortcut: "You can see the goal page with Ctrl + Alt + Space ."
         shortcutMobile: "You can swipe to the left to see the goal page."
         targetPage: "Target page"
         openTargetPage: "Open target page"
@@ -290,10 +290,10 @@ onUnmounted(() => {
         noDaily: "Pas de daily disponible pour cette langue"
         apiError: "Le fournisseur de daily personnalisé ne respecte pas le format"
         explanation: |
-            Bienvenue sur Wiki Adventure Daily! Le but est d'aller d'une page wikipédia à une autre en suivant uniquement les liens.
-            Essayer de finir le challenge quotidien aussi vite que vous pouvez avec le moins de liens possible et partager votre aventure avec vos amis!
+            Bienvenue sur Wiki Adventure Daily! Le but est d'aller d'une page Wikipédia à une autre en suivant uniquement les liens.
+            Essayez de terminer le challenge quotidien aussi vite que vous le pouvez en utilisant le moins de liens possibles et partagez votre aventure avec vos amis!
 
-        shortcut: "Vous pouvez consulter la page cible avec ctrl + alt + space ."
+        shortcut: "Vous pouvez consulter la page cible avec Ctrl + Alt + Espace."
         shortcutMobile: "Vous pouvez consulter la page cible en glissant vers la gauche."
         targetPage: "Page cible"
         openTargetPage: "Ouvrir la page cible"

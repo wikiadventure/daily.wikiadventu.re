@@ -29,9 +29,9 @@ const { t } = useI18n({ useScope: 'local' });
 </script>
 <i18n lang="yaml">
   en:
-    safeModeTooltip: "SafeMode will blur image of wikipedia, you can unblur image for the current page with ctrl + alt + Q"
+    safeModeTooltip: "SafeMode will blur image of wikipedia, you can unblur image for the current page with Ctrl + Alt + Q"
   fr:
-    safeModeTooltip: "SafeMode vas flouter les images de wikipédia, vous pouvez les défloutés pour la page en cours avec ctrl + alt + Q"
+    safeModeTooltip: "SafeMode vas flouter les images de wikipédia, vous pouvez les défloutés pour la page en cours avec Ctrl + Alt + Q"
   de:
     safeModeTooltip: "Im SafeMode wird das Bild von Wikipedia unscharf. Sie können das Bild für die aktuelle Seite mit Strg + Alt + Q unscharf machen"
   es:
