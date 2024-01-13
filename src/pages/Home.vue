@@ -274,7 +274,7 @@ onUnmounted(() => {
             Welcome to Wiki Adventure Daily! The goal is to go from 1 wikipedia page to an other by following link.
             Try to finish this daily challenge as fast you can with the fewest link possible and share you adventure with your friend!
 
-        shortcut: "You can see the goal page with ctrl + alt + space ."
+        shortcut: "You can see the goal page with Ctrl + Alt + Space ."
         shortcutMobile: "You can swipe to the left to see the goal page."
         targetPage: "Target page"
         openTargetPage: "Open target page"
