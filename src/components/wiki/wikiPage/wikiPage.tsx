@@ -15,6 +15,7 @@ interface WikiPageProps {
 }
 export function WikiPage({ disable, title, onWikiLink, initialPage, wikiLang}:WikiPageProps) {
     const wikiRef = useRef<HTMLDivElement | null>(null);
+    const scrollRef = useRef<HTMLDivElement | null>(null);
     const [wikiPage, setWikiPage] = useState(new WikiPageContent());
     const [styleSheets, setStyleSheets] = useState<CSSStyleSheet[]>([]);
     const update = useUpdate();
@@ -71,6 +72,7 @@ export function WikiPage({ disable, title, onWikiLink, initialPage, wikiLang}:Wi
             update();
             setTimeout(() => {
                 onWikiLink(wikiPage.title);
+                scrollRef.current?.scrollTo({top: 0, left: 0, behavior: "instant"});
                 setLoading(false);
             }, 25);
         } catch (error) {
@@ -234,12 +236,12 @@ export function WikiPage({ disable, title, onWikiLink, initialPage, wikiLang}:Wi
     });
 
     return (
-        <root.div mode="open" styleSheets={styleSheets}>
-            <div data-is-html role="article" className={[...vectorHtmlClass, "wiki-page"].join(" ")}>
+        <root.div mode="open" styleSheets={styleSheets} ref={scrollRef}>
+            <div data-is-html role="article" className={[...vectorHtmlClass, "wiki-page"].join(" ")} ref={wikiRef}>
                 <div data-is-body className={disable ? "disable" : ""} >
                     <h1 className="wiki-title"  style={{textAlign: "center"}}>{title}</h1>
                     <h2 className="wiki-title">{wikiPage.title}</h2>
-                    <div className="mw-parser-output" ref={wikiRef} 
+                    <div className="mw-parser-output" 
                         dangerouslySetInnerHTML={{ __html: wikiPage.doc?.body.firstElementChild?.innerHTML ?? "" }}
                     >
                     </div>    

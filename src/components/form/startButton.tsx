@@ -56,8 +56,8 @@ export function StartButton({ lang }: { lang: LangCode }) {
                 }
                 let [startPage, endPage] = text.split(/\r*\n/g);
                 if (reverse) [startPage, endPage] = [endPage, startPage];
-                gameplayStore.setStartPage(startPage);
-                gameplayStore.setEndPage(endPage);
+                gameplayStore.setStartPage(decodeURIComponent(startPage));
+                gameplayStore.setEndPage(decodeURIComponent(endPage));
                 gameplayStore.setDailyDate(dailyDate);
                 gameplayStore.setWikiLang(wikiLang);
                 gameplayStore.setReverse(reverse);

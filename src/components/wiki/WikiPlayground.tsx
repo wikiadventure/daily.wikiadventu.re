@@ -40,7 +40,7 @@ function WikiStartEndPagesRaw(
         <div className="scroll-snap-dual-panel" ref={containerRef}>
             <WikiPage
                 disable={false}
-                title="Find!"
+                title={"find : " + endPage}
                 onWikiLink={(e) => onWikiLink(e)}
                 initialPage={startPage}
                 wikiLang={wikiLang}

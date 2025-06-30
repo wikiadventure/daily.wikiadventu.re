@@ -45,11 +45,11 @@ export function DailyDatePicker({ lang }: { lang: LangCode }) {
                     locale={calendarLocales[lang]}
                     mode="single"
                     startMonth={new Date(2020, 0)}
-                    endMonth={new Date()}
+                    // endMonth={new Date()}
                     selected={dailyDate}
                     required={true}
                     captionLayout="dropdown"
-                    disabled={(date) => isAfter(date, new Date()) || date.getFullYear() < 2020}
+                    disabled={(date) => /*isAfter(date, new Date()) ||*/ date.getFullYear() < 2020}
                     onSelect={(date) => {
                         setDailyDate(date);
                         setOpen(false);
