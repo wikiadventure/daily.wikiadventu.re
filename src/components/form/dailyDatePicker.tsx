@@ -12,8 +12,8 @@ import { useGameFormStore } from "@/composables/gameForm";
 import type { LangCode } from "@/i18n/lang";
 import { enUS as en, fr, de, eo, type Locale } from "react-day-picker/locale";
 import { isAfter } from "date-fns";
-import { useEffect, useState } from "react";
-import { useMount } from "react-use";
+import { useState } from "react";
+import { useMount } from "@/composables/useMount";
 
 const calendarLocales:Record<LangCode, Locale> = {
     en,

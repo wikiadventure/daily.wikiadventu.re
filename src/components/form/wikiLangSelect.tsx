@@ -4,8 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { langs, type LangCode } from "@/i18n/lang";
 import { useTranslations, type Translations } from "@/composables/useTranslation";
 import "./wikiLangSelect.css";
-import { useEffect } from "react";
-import { useMount } from "react-use";
+import { useMount } from "@/composables/useMount";
 
 export function WikiLangSelect({ lang }: { lang: LangCode }) {
     const { wikiLang, setWikiLang } = useGameFormStore();

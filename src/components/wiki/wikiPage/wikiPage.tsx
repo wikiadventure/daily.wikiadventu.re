@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { useMount, useUpdate } from "react-use";
 import WikiPageContent from "./wikiPageContent";
 import root from 'react-shadow';
 import wikiPageCssString from "./wikiPage.css?inline";
 import type { LangCode } from "@/i18n/lang";
+import { useMount } from "@/composables/useMount";
+import { useUpdate } from "@/composables/useUpdate";
 
 interface WikiPageProps {
     disable: boolean;

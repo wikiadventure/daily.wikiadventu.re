@@ -2,10 +2,10 @@
 import { useGamePlayStore } from "@/composables/gamePlay";
 import { WikiPage } from "./wikiPage/wikiPage";
 import "./WikiPlayground.css";
-import { useMount } from "react-use";
 import { lang } from "@/i18n/currentLang";
 import { memo, useEffect, useRef } from "react";
 import type { LangCode } from "@/i18n/lang";
+import { useMount } from "@/composables/useMount";
 
 function WikiStartEndPagesRaw(
     { startPage, endPage, onWikiLink, wikiLang }:
