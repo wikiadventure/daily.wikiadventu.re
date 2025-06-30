@@ -10,14 +10,14 @@ import netlify from '@astrojs/netlify';
 
 // https://astro.build/config
 export default defineConfig({
-  i18n: {
-    locales: ["en", "fr", "de", "es"],
-    defaultLocale: "en",
-    routing: {
-      redirectToDefaultLocale: true,
-      prefixDefaultLocale: true
-    }
-  },
+  // i18n: {
+  //   locales: ["en", "fr", "de", "es"],
+  //   defaultLocale: "en",
+  //   routing: {
+  //     redirectToDefaultLocale: true,
+  //     prefixDefaultLocale: true
+  //   }
+  // },
 
   integrations: [react()],
 

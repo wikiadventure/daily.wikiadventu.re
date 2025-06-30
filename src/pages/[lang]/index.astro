@@ -2,12 +2,11 @@
 import { DailyDatePicker } from "@/components/form/dailyDatePicker";
 import CompactLangSwitch from "../../components/compactLangSwitch/compactLangSwitch";
 import LogoShowIn from "../../components/cosmetic/logoShowIn.astro";
-import type { LangCode } from "../../i18n/lang";
-import { langsKey } from "../../i18n/lang";
 import { WikiLangSelect } from "@/components/form/wikiLangSelect";
 import { useTranslations, type Translations } from "@/composables/useTranslation";
 import { ReverseCheckbox } from "@/components/form/reverseCheckbox";
 import { StartButton } from "@/components/form/startButton";
+import { langsKey } from "@/i18n/lang";
 
 export function getStaticPaths() {
 	return langsKey.map((k) => ({
