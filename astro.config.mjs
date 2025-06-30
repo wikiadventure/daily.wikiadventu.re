@@ -6,6 +6,8 @@ import { browserslistToTargets } from 'lightningcss';
 import Icons from 'unplugin-icons/vite';
 import tailwindcss from '@tailwindcss/vite'; // only used for shadcn components
 
+import netlify from '@astrojs/netlify';
+
 // https://astro.build/config
 export default defineConfig({
   i18n: {
@@ -16,7 +18,9 @@ export default defineConfig({
       prefixDefaultLocale: true
     }
   },
+
   integrations: [react()],
+
   vite: {
     optimizeDeps: {
       include: ['react-use'], // Force Vite to pre-bundle the ESM version
@@ -37,4 +41,6 @@ export default defineConfig({
       }
     },
   },
+
+  adapter: netlify(),
 });

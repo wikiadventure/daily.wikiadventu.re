@@ -23,6 +23,7 @@
     "tailwindcss": "^4.1.11"
   },
   "dependencies": {
+    "@astrojs/netlify": "^6.4.0",
     "@astrojs/react": "^4.3.0",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-popover": "^1.1.14",
