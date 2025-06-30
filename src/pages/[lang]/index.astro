@@ -1,0 +1,233 @@
+---
+import { DailyDatePicker } from "@/components/form/dailyDatePicker";
+import CompactLangSwitch from "../../components/compactLangSwitch/compactLangSwitch";
+import LogoShowIn from "../../components/cosmetic/logoShowIn.astro";
+import type { LangCode } from "../../i18n/lang";
+import { langsKey } from "../../i18n/lang";
+import { WikiLangSelect } from "@/components/form/wikiLangSelect";
+import { useTranslations, type Translations } from "@/composables/useTranslation";
+import { ReverseCheckbox } from "@/components/form/reverseCheckbox";
+import { StartButton } from "@/components/form/startButton";
+
+export function getStaticPaths() {
+	return langsKey.map((k) => ({
+		params: { lang: k },
+	}));
+}
+
+const { lang } = Astro.params;
+
+type HomeTranslation = {
+	explanation: string;
+	contribution: {
+		discord: string;
+		github: string;
+		kofi: string;
+	};
+};
+
+const translations: Translations<HomeTranslation> = {
+	en: {
+		explanation: 
+			`Welcome to Wiki Adventure Daily! The goal is to go from 1 wikipedia page to an other by following link.
+            Try to finish this daily challenge as fast you can with the fewest link possible and share you adventure with your friend!`,
+		contribution: {
+			discord: "Find friends to play with on our Discord",
+			github: "Contribute to the game",
+			kofi: "Buy me a coffee",
+		},
+	},
+	fr: {
+		explanation: 
+			`Bienvenue sur Wiki Adventure Daily! Le but est d'aller d'une page Wikipédia à une autre en suivant uniquement les liens.
+            Essayez de terminer le challenge quotidien aussi vite que vous le pouvez en utilisant le moins de liens possibles et partagez votre aventure avec vos amis!`,
+		contribution: {
+			discord: "Trouve des joueurs sur notre Discord",
+			github: "Apporte ta pierre à l'édifice sur Github",
+			kofi: "Offre moi un café",
+		},
+	},
+	de: {
+		explanation: 
+			`Willkommen bei Wiki Adventure Daily! Ziel ist es, durch den folgenden Link von einer Wikipedia-Seite zur nächsten zu gelangen.
+            Versuchen Sie, diese tägliche Herausforderung so schnell wie möglich mit möglichst wenigen Links zu meistern und Ihr Abenteuer mit Ihrem Freund zu teilen!`,
+		contribution: {
+			discord: "Finde Freunde zum Spielen auf unserem Discord",
+			github: "Zum Spiel beitragen",
+			kofi: "Kauf mir einen Kaffee",
+		},
+	},
+	eo: {
+		explanation:
+			`¡Bienvenidos a Wiki Aventure Daily! El objetivo es pasar de una página de Wikipedia a otra siguiendo el enlace.
+            ¡Intenta terminar este desafío diario lo más rápido que puedas con el menor número de enlaces posible y comparte tu aventura con tu amigo!`,
+		contribution: {
+			discord: "Encuentra amigos con quienes jugar en nuestro Discord",
+			github: "Contribuir al juego",
+			kofi: "Cómprame un café",
+		},
+	},
+};
+
+const { t } = useTranslations(lang, translations);
+
+---
+
+<!doctype html>
+<html>
+	<head>
+		<title>Daily Wiki Adventure</title>
+		<meta charset="UTF-8" />
+		<meta
+			name="description"
+			property="og:description"
+			content="Once a day craft your epic in wikipedia"
+		/>
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="mask-icon" href="/favicon.svg" color="#FFFFFF" />
+		<meta name="theme-color" content="#222222" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@adventure_wiki" />
+		<meta name="twitter:title" content="Daily Wiki Adventure" />
+		<meta
+			name="twitter:description"
+			content="Once a day craft your epic in wikipedia"
+		/>
+		<meta
+			name="twitter:image"
+			content="https://cdn.statically.io/gh/Sacramentix/WikiAdventure/master/front/public/images/openGraph1608x1000.png"
+		/>
+		<meta name="twitter:image:alt" content="Cyan glowing wikipedia logo" />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Wiki Adventure" />
+		<meta
+			property="og:description"
+			content="Once a day craft your epic in wikipedia"
+		/>
+		<meta
+			property="og:image"
+			content="https://cdn.statically.io/gh/Sacramentix/WikiAdventure/master/front/public/images/openGraph1608x1000.png"
+		/>
+		<meta property="og:image:alt" content="Cyan glowing wikipedia logo" />
+	</head>
+	<body>
+		<main>
+			<section class="Home select">
+				<LogoShowIn />
+				<CompactLangSwitch url={Astro.url} client:load />
+				<h1>Daily</h2>
+				<p>{t("explanation")}</p>
+				<!-- <p>{{ t("shortcut" + ($q.platform.is.mobile ? "Mobile" : "")) }}</p> -->
+				<form>
+					<WikiLangSelect lang={lang} client:load>
+						<div slot="fallback">Loading WikiLangSelect</div>
+					</WikiLangSelect>
+					<DailyDatePicker lang={lang} client:load>
+						<div slot="fallback">Loading date picker</div>
+					</DatePicker>
+					<ReverseCheckbox lang={lang} client:load>
+						<div slot="fallback">Loading reverse checkbox</div>
+					</ReverseCheckbox>
+					<div>
+						<StartButton lang={lang} client:load></StartButton>
+					</div>
+				</form>
+				<!-- <section title="contribution">
+					<div>
+						<p>{t("contribution.discord")}</p>
+						<discord-btn/>
+					</div>
+					<div>
+						<p>{t("contribution.github")}</p>
+						<github-btn/>
+					</div>
+					<div>
+						<p>{t("contribution.kofi")}</p>
+						<kofi-btn/>
+					</div>
+				</section> -->
+			</section>
+			<section class="Home play">
+
+			</section>
+		</main>
+	</body>
+</html>
+<style is:global>
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+
+main {
+	min-height: 100vh;
+}
+
+.display-none-during-play {
+	display: none!important;
+}
+
+.Home.select {
+	overflow-x: hidden;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding: 15px;
+	gap: 15px;
+
+	.compact-lang-switch {
+		position: absolute;
+		top: 15px;
+		left: 15px;
+	}
+
+	.reverse-check {
+		justify-content: center;
+		border: 1px solid rgba(0, 0, 0, 0.24);
+		border-radius: 4px;
+	}
+	.logo-show-in {
+		--logo-height: min(8em, 25vw);
+	}
+	section {
+		width: 100%;
+		display: flex;
+		justify-content: space-evenly;
+		flex-wrap: wrap;
+		gap: 15px;
+		div {
+			display: grid;
+			place-items: center;
+		}
+	}
+
+	form {
+		display: flex;
+		width: 100%;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 15px;
+		> * {
+			min-width: 26ch;
+		}
+		> div:last-child {
+			flex: 1 1 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+}
+</style>

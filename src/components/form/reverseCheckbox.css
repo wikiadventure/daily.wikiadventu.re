@@ -1,0 +1,21 @@
+.reverse-checkbox {
+    min-width: min(30ch, 95vw);
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background: #eee;
+    flex-direction: row-reverse;
+    padding: 0 15px;
+    gap: 15px;
+
+    > input {
+        flex: 0 0;
+    }
+
+    > p {
+        flex: 1 1;
+    }
+}

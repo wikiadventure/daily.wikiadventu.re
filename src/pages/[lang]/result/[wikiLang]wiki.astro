@@ -1,0 +1,273 @@
+---
+import CompactLangSwitch from "@/components/compactLangSwitch/compactLangSwitch";
+import LogoShowIn from "@/components/cosmetic/logoShowIn.astro";
+import { dailyAvailableIn } from "@/composables/gameForm";
+import  { loadPreviews } from "@/composables/useWiki";
+import WikiPreview from "@/components/wiki/wikiPreview/wikiPreview.astro";
+import { langsKey, type LangCode } from "@/i18n/lang";
+import { useTranslations, type Translations } from "@/composables/useTranslation";
+export const prerender = false; 
+
+const { lang: rawLang, wikiLang: rawWikiLang } = Astro.params;
+
+if (!langsKey.includes(rawLang as LangCode)) return Astro.redirect("/404");
+
+const lang = rawLang as LangCode;
+
+if (!dailyAvailableIn.includes(rawWikiLang as LangCode)) return Astro.redirect("/404");
+
+const wikiLang = rawWikiLang as LangCode;
+
+const url = Astro.url;
+
+const time = parseInt(url.searchParams.get("time") ?? "0");
+const path = (url.searchParams.get("path") ?? "").split("|").map(s=>decodeURIComponent(s));
+const path50 = path.length > 50 ? path.slice(0,25).concat(path.slice(path.length-25)) : path;
+
+const min = Math.floor(time/60)
+const minS = min > 0 ? min+"m" : "";
+const secS = time % 60+"s";
+
+const formatTime = minS+secS;
+
+const { previews: wikiContentPreviews, response } = await loadPreviews(path50, wikiLang);
+
+const wikiContentPreviewsSorted = path50.map(s=>wikiContentPreviews.find(w=>w.title==s)!);
+
+const startPage = wikiContentPreviewsSorted[0]?.title ?? path[0].replace(/_/g," ");
+const startPageId = wikiContentPreviewsSorted[0]?.id;
+const endPage = wikiContentPreviewsSorted[wikiContentPreviewsSorted.length-1]?.title || path[path.length-1].replace(/_/g," ");
+const endPageId = wikiContentPreviewsSorted[wikiContentPreviewsSorted.length-1]?.id;
+
+const wikiUrl = (t:string) => `https://${wikiLang}.wikipedia.org/wiki/${encodeURIComponent(t)}`;
+
+const ogUrl = 
+	startPageId != null && endPageId != null ?
+ 	`https://og-six-degrees.wikiadventu.re/api/og?lang=${wikiLang}&start=${startPageId}&end=${endPageId}` :
+	"https://cdn.statically.io/gh/Sacramentix/WikiAdventure/master/front/public/images/openGraph1608x1000.png";
+
+type ResultTranslation = {
+	linksInTime: string,
+	linkInTime: string,
+	ogDescription: string,
+	to: string
+};
+
+const translations: Translations<ResultTranslation> = {
+	en: {
+		linkInTime: "link in",
+		linksInTime: "links in",
+		ogDescription: "Result of my epic on my Daily Wiki Adventure from",
+		to: "to"
+	},
+	fr: {
+		linkInTime: "lien en",
+		linksInTime: "liens en",
+		ogDescription: "Résultat de mon épopée sur mon Daily Wiki Adventure de",
+		to: "à"
+	},
+	de: {
+		linkInTime: "link in",
+		linksInTime: "links in",
+		ogDescription: "Ergebnis meines Epos auf meinem Daily Wiki Adventure from",
+		to: "nach"
+	},
+	eo: {
+		linkInTime: "ligilo en",
+		linksInTime: "ligiloj en",
+		ogDescription: "Rezulto de mia epopeo en mia Daily Wiki Adventure from",
+		to: "al"
+	},
+};
+
+const { t } = useTranslations(lang, translations);
+
+const ogDescription = `${t('ogDescription')} ${startPage} ${t('to')} ${endPage}`
+
+---
+
+<!doctype html>
+<html>
+	<head>
+		<title>Daily Wiki Adventure</title>
+		<meta charset="UTF-8" />
+		<meta
+			name="description"
+			property="og:description"
+			content={ogDescription}
+		/>
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="mask-icon" href="/favicon.svg" color="#FFFFFF" />
+		<meta name="theme-color" content="#222222" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@adventure_wiki" />
+		<meta name="twitter:title" content="Daily Wiki Adventure" />
+		<meta
+			name="twitter:description"
+			content="Result of my epic on my daily wiki adventure"
+		/>
+		<meta
+			name="twitter:image"
+			content={ogUrl}
+		/>
+		<meta name="twitter:image:alt" content="Cyan glowing wikipedia logo" />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Wiki Adventure" />
+		<meta
+			property="og:description"
+			content={ogDescription}
+		/>
+		<meta
+			property="og:image"
+			content={ogUrl}
+		/>
+		<meta property="og:image:alt" content="Cyan glowing wikipedia logo" />
+	</head>
+	<body>
+		<main class="daily-result">
+            <CompactLangSwitch url={Astro.url} client:load/>
+            <!-- <theme-switch class="absolute-top-right q-ma-sm" /> -->
+            <LogoShowIn />
+            <h2>Daily</h2>
+            <h3>{ startPage } → { endPage }</h3>
+			<!-- t('linkInTime', path.length-1) -->
+            <p>{ path.length-1 } { path.length > 1 ? t('linksInTime') : t('linkInTime') } { formatTime }</p>
+            <div class="action">
+                <!-- <q-btn v-if="isSupported" push @click="shareResult">
+                    {{ t('share') }} <mdi-share-variant/>
+                </q-btn>
+                <q-btn push @click="copyLink">
+                    {{ t('copyShare') }} <mdi-share-variant/>
+                </q-btn>
+                <q-btn push class="action-btn" to="/">
+                    {{ t('play') }} <mdi-play/>
+                </q-btn> -->
+            </div>
+            <section class="path">
+				{
+					wikiContentPreviewsSorted.map((w=>(
+						<a href={wikiUrl(w.title || '')}>
+							<WikiPreview beforeTitle="" wikiPreview={w} />
+						</a>
+					)))
+				}
+            </section>
+			{ startPageId != null && endPageId != null &&
+			<section class="six-degree">
+				<p>Check all shortest paths possible on</p>
+				<a href={`https://six-degrees.wikiadventu.re/${wikiLang}/${startPageId}/${endPageId}`}>six-degrees.wikiadventu.re</a>
+			</section>
+			}
+		</main>
+	</body>
+</html>
+<style is:global>
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+
+main {
+	min-height: 100vh;
+}
+
+.daily-result {
+    overflow-x: hidden;
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    gap: 15px;
+	position: relative;
+	padding-bottom: 50px;
+
+	.compact-lang-switch {
+		position: absolute;
+		top: 15px;
+		left: 15px;
+	}
+
+    .logo-show-in {
+        --logo-height: min(8em, 25vw);
+    }
+
+    .action {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    section.path {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 5px;
+        gap: 15px;
+        >a {
+            text-decoration: none;
+            color: unset;
+            width: max(500px, 50%);
+            max-width: 100%;
+        }
+        > a:first-child:nth-last-child(50) ~ a:nth-child(26):before {
+            content: "...";
+            font-size: 3em;
+            line-height: 100px;
+        }
+    }
+
+	section.six-degree {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 5px;
+        gap: 15px;
+		> p {
+			text-align: center;
+		}
+        > a {
+            color: unset;
+            width: max(500px, 50%);
+            max-width: 100%;
+        }
+	}
+
+    >h2 {
+        margin: 30px 0;
+    }
+    >h3, >p {
+        margin: 15px;
+    }
+    /* // >h2, >h3, >p {
+    //     margin: 15px;
+    // } */
+    >p {
+        font-size: 2em;
+    }
+
+    .wiki-preview {
+        background: #cdfdfa;
+        border-radius: 15px;
+    }
+
+}
+</style>

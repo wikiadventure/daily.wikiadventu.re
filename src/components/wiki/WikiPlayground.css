@@ -1,0 +1,33 @@
+.wiki-playground {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    > .time-elapsed {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        padding: 5px;
+        border-radius: 5px;
+        background: #fff7;
+        backdrop-filter: blur(2px);
+    }
+    > .scroll-snap-dual-panel {
+        width: 100vw;
+        height: 100vh;
+        overflow-y: hidden;
+        overflow-x: scroll;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        scrollbar-width: 0;
+        scroll-snap-type: both mandatory;
+        overscroll-behavior-x: contain;
+
+        > * {
+            flex: 0 0 100%;
+            scroll-snap-align: center;
+            overflow-y: scroll;
+        }
+    }
+}

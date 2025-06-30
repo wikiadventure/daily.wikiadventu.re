@@ -1,13 +1,4 @@
 {
-  "recommendations": [
-    "editorconfig.editorconfig",
-    "vue.volar",
-    "wayou.vscode-todo-highlight"
-  ],
-  "unwantedRecommendations": [
-    "octref.vetur",
-    "hookyqr.beautify",
-    "dbaeumer.jshint",
-    "ms-vscode.vscode-typescript-tslint-plugin"
-  ]
+  "recommendations": ["astro-build.astro-vscode"],
+  "unwantedRecommendations": []
 }

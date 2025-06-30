@@ -1,6 +1,6 @@
-import { Lang } from "src/boot/i18n";
+import type { LangCode } from "@/i18n/lang";
 
-export async function loadPreviews(titles: string[], lang: Lang) {
+export async function loadPreviews(titles: string[], lang: LangCode) {
     var url = new URL('https://' + lang + '.wikipedia.org/w/api.php');
     url.search = new URLSearchParams({
         action: 'query',
@@ -19,20 +19,22 @@ export async function loadPreviews(titles: string[], lang: Lang) {
         .catch((error) => {
             console.log(error);
         })
-    var previews: WikiPreview[] = [];
+    var previews: WikiContentPreview[] = [];
     if (typeof response?.query?.pages === 'undefined') return { previews, response };
     for (const page of Object.values(response.query.pages) as WikiRawSuggestion[]) {
         if (page.missing != null) continue;
         previews.push({
             title: page.title,
             description: page?.terms?.description[0],
-            thumbnail: page?.thumbnail
+            thumbnail: page?.thumbnail,
+            id: page.pageid
         });
     }
     return { previews, response };
 }
 
 export type WikiRawSuggestion = {
+    pageid: number,
     ns: number,
     index: number,
     title: string,
@@ -47,14 +49,15 @@ export type WikiRawSuggestion = {
     missing?: string
 }
 
-export interface WikiPreview {
+export interface WikiContentPreview {
     title?: string,
     description?: string
     thumbnail?: {
         source: string,
         width: number,
         height: number
-    }
+    },
+    id: number
 }
 
 export const wikiHeaders = new Headers({

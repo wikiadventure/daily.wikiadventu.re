@@ -1,0 +1,26 @@
+.start-button {
+    border: none;
+    border-radius: 10px;
+    background: #eee;
+    color: #000;
+    font-weight: bolder;
+    font-size: 2rem;
+    padding: 15 35px;
+    position: relative;
+    &:active {
+        transform: translateY(10px);
+        &:after {
+            transform: translateY(0);
+        }
+    }
+    &:after {
+        z-index: -1;
+        content: "";
+        position: absolute;
+        display: block;
+        inset: 0;
+        transform: translateY(10px);
+        background: #ddd;
+        border-radius: 10px;
+    }
+}

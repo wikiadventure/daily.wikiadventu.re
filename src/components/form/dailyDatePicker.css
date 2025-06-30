@@ -1,0 +1,104 @@
+button.daily-date-picker {
+    font-size: 1rem;
+    min-width: min(30ch, 95vw);
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background: #eee;
+    > svg {
+        flex: 0 0 2rem;
+    }
+    > div {
+        flex: 1 1;
+    }
+}
+
+.daily-date-picker.pop-up {
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 1px 5px #0003,0 2px 2px #00000024,0 3px 1px -2px #0000001f;
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        justify-content: center;
+    }
+
+    .rdp-dropdowns {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        min-height: 3rem;
+        > span {
+            flex: 1 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            select {
+                width: 80%;
+                padding: 10px;
+                border-radius: 5px;
+            }
+        }
+        > span > span {
+            display: none;
+        }
+    }
+    background: #eee;
+    padding: 10px;
+    table {
+        border-spacing: 0;
+    }
+    th {
+        padding: 10px 0;
+        border-radius: 5px 5px 0 0;
+        &:nth-child(2n) {
+            background: #0000000d;
+        } 
+    }
+    tr {
+        border-spacing: 0;
+        border-radius: 5px;
+        &:nth-child(2n) {
+            background: #0000000d;
+        }
+    }
+    td {
+        &:first-child {
+            border-radius: 5px 0 0 5px;
+        }
+        &:last-child {
+            border-radius: 0 5px 5px 0;
+        }
+        &:nth-child(2n) {
+            background: #0000000d;
+        }
+        &[data-selected="true"] > button {
+            color: #1976d2;
+        }
+    }
+    td > button {
+        border: 2px solid #0000;
+        border-radius: 5px;
+        width: 100%;
+        padding: 10px;   
+        height: 100%;
+        background: #0000;
+        font-weight: bold;
+        transition: all ease-out .5s;
+        @media (prefers-reduced-motion: reduce) {
+            transition: none !important;
+        }
+
+        &:is(:hover, :focus, :focus-visible) {
+            outline: none;
+            backdrop-filter: brightness(1.1);
+            background: #1976d244;
+            transition: all linear 0s;
+            border: 2px solid cyan;
+            
+        }
+    }
+}

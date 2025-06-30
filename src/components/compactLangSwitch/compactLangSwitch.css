@@ -1,0 +1,58 @@
+.compact-lang-switch {
+    --color: #3ccde0;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background: #0001;
+    filter: drop-shadow(0 0 2px var(--color)) drop-shadow(0 0 5px var(--color));
+    cursor: pointer;
+
+    &:is(:focus, :focus-visible) {
+        outline: 2px solid var(--color);
+        outline-offset: 4px;
+        
+    }
+    &:hover {
+        background: #0000000a;
+    }
+
+    dialog {
+        border: none;
+        background: transparent;
+
+        &::backdrop {
+            background: #0005;
+            backdrop-filter: blur(2px);
+        }
+    }
+
+    div {
+        display: flex;
+        flex-direction: column;
+        width: min(95vw, 500px);
+        background: #222;
+        color: #fff;
+        overflow: hidden;
+        border-radius: 5px;
+
+        > label {
+            padding: 5px 15px;
+            border-bottom: 1px solid #0ff4;
+        }
+    }
+
+    a {
+        padding: 5px 15px;
+        background: #222;
+        color: white;
+        text-decoration: none;
+
+        &:is(:focus, :focus-visible) {
+            outline: none;
+            filter: brightness(1.2);
+            color: aquamarine;
+        }
+
+    }
+
+}
