@@ -40,21 +40,12 @@ export async function getSeededRandomPages(
     numberOfPages: number
 ) {
     const highestPageId = await getHighestPageId(lang, date);
-    console.log({highestPageId});
-    const seededRandom = (seed: string, max: number): number => {
-        let hash = 0;
-        for (let i = 0; i < seed.length; i++) {
-            hash = seed.charCodeAt(i) + ((hash << 5) - hash);
-        }
-        return Math.abs(hash % max);
-    };
 
     const random = createSeededRandomGenerator(seed);
 
     const randomPageIds = Array.from({ length: numberOfPages }, (_,i) =>
         random(highestPageId)
     );
-    console.log({randomPageIds});
     const pages: { pageid:number, title:string }[] = [];
 
     findRandomPage: for (const pageId of randomPageIds) {
@@ -121,8 +112,6 @@ export async function getHighestPageId(lang: string, date:Date): Promise<number>
 
   const response = await fetch(url.toString(), { headers: wikiHeaders });
   const json = await response.json();
-  console.log({Highestjson: json});
-  console.log({HighestUrl: url.toString()});
   const pageId = json.query.recentchanges[0].pageid;
 
   return pageId;
