@@ -1,26 +1,39 @@
 .start-button {
-    border: none;
-    border-radius: 10px;
-    background: #eee;
-    color: #000;
-    font-weight: bolder;
     font-size: 2rem;
-    padding: 15 35px;
-    position: relative;
-    &:active {
-        transform: translateY(10px);
+    min-height: 4em;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    > button {
+        border: none;
+        border-radius: 10px;
+        background: #eee;
+        color: #000;
+        font-weight: bolder;
+        font-size: 1em;
+        padding: 15 35px;
+        position: relative;
+        &:active {
+            transform: translateY(10px);
+            &:after {
+                transform: translateY(0);
+            }
+        }
         &:after {
-            transform: translateY(0);
+            z-index: -1;
+            content: "";
+            position: absolute;
+            display: block;
+            inset: 0;
+            transform: translateY(10px);
+            background: #ddd;
+            border-radius: 10px;
         }
     }
-    &:after {
-        z-index: -1;
-        content: "";
-        position: absolute;
-        display: block;
-        inset: 0;
-        transform: translateY(10px);
-        background: #ddd;
-        border-radius: 10px;
+    > p {
+        color: red;
+        font-weight: bold;
+        font-size: .5em;
     }
 }
