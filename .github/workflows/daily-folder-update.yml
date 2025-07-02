@@ -1,0 +1,35 @@
+name: Daily Folder Update
+
+on:
+  push:
+    paths:
+      - public/daily/**
+
+jobs:
+  update-daily-folder:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4.4.0
+        with:
+          node-version: '24'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run script to generate new file
+        run: npx ts-node .github/workflows/daily-folder-update.ts
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/daily
+          git commit -m "chore: update daily available date[skip ci]"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
