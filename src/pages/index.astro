@@ -1,3 +1,25 @@
 ---
-return Astro.redirect("/en")
+import { langsKey, type LangCode } from "@/i18n/lang";
+
+export const prerender = false;
+const rawAcceptLanguage = Astro.request.headers.get("accept-language");
+// const rawAcceptLanguage = "fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5";
+
+let redirectLang: LangCode = 'en';
+
+if (rawAcceptLanguage) {
+  const acceptedLangs = 
+    rawAcceptLanguage.split(',').map(lang => (
+        lang.trim().split(';')[0].split('-')[0].toLowerCase()
+    ));
+
+  // Find the first accepted language that is supported
+  const foundLang = acceptedLangs.find(lang => (langsKey as readonly string[]).includes(lang));
+
+  if (foundLang) {
+    redirectLang = foundLang as LangCode;
+  }
+}
+
+return Astro.redirect("/"+redirectLang);
 ---
