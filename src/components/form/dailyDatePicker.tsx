@@ -14,6 +14,7 @@ import { enUS as en, fr, de, eo, type Locale } from "react-day-picker/locale";
 import { isAfter } from "date-fns";
 import { useState } from "react";
 import { useMount } from "@/composables/useMount";
+import { fetchAvailableDates } from "@/composables/gameForm";
 
 const calendarLocales:Record<LangCode, Locale> = {
     en,
@@ -25,10 +26,15 @@ const calendarLocales:Record<LangCode, Locale> = {
 export function DailyDatePicker({ lang }: { lang: LangCode }) {
     const [open, setOpen] = useState(false);
     const { dailyDate, setDailyDate } = useGameFormStore();
-    
+    const [availableDates, setAvailableDates] = useState<Date[]>([]);
+
     // Used to load default state after hydration
     useMount(() => {
         if (dailyDate == null) setDailyDate(new Date());
+
+        fetchAvailableDates(lang).then((dates) => {
+            setAvailableDates(dates);
+        });
     });
 
     return (
@@ -44,12 +50,13 @@ export function DailyDatePicker({ lang }: { lang: LangCode }) {
                     lang={lang}
                     locale={calendarLocales[lang]}
                     mode="single"
+                    
                     startMonth={new Date(2020, 0)}
-                    // endMonth={new Date()}
+                    endMonth={new Date()}
                     selected={dailyDate}
                     required={true}
                     captionLayout="dropdown"
-                    disabled={(date) => /*isAfter(date, new Date()) ||*/ date.getFullYear() < 2020}
+                    disabled={(date) => isAfter(date, new Date()) || date.getFullYear() < 2020}
                     onSelect={(date) => {
                         setDailyDate(date);
                         setOpen(false);
@@ -57,27 +64,31 @@ export function DailyDatePicker({ lang }: { lang: LangCode }) {
                     formatters={{
                         formatMonthDropdown: (date) => date.toLocaleString("default", { month: "long" }),
                     }}
-                    // classNames={{
-                    //     table: "w-full border-collapse table-fixed",
-                    //     week: "flex w-full justify-between",
-                    //     day: "w-full h-full text-center",
-                    // }}
-                    // components={{
-                        
-                    //     Weeks: ({ children, ...props }) => {
-                    //         const rows = React.Children.toArray(children);
-                    //         while (rows.length < 6) {
-                    //             rows.push(
-                    //                 <tr className="flex w-full justify-between">
-                    //                 {Array.from({ length: 7 }).map((_, index) => (
-                    //                     <td key={index} className="w-full h-full text-center"></td>
-                    //                 ))}
-                    //                 </tr>
-                    //             );
-                    //         }
-                    //         return <tbody {...props}>{rows}</tbody>;
-                    //     },
-                    // }}
+                    components={{
+                        DayButton: ({ day, modifiers, className, ...props }) => {
+                            return (
+                                <button
+                                    {...props}
+                                    className={`${className} ${availableDates.find(d => d.getTime() === day.date.getTime()) ? "available" : ""}`}
+                                >
+                                    {day.date.getDate()}
+                                </button>
+                            );
+                        }
+                        // Weeks: ({ children, ...props }) => {
+                        //     const rows = React.Children.toArray(children);
+                        //     while (rows.length < 6) {
+                        //         rows.push(
+                        //             <tr className="flex w-full justify-between">
+                        //             {Array.from({ length: 7 }).map((_, index) => (
+                        //                 <td key={index} className="w-full h-full text-center"></td>
+                        //             ))}
+                        //             </tr>
+                        //         );
+                        //     }
+                        //     return <tbody {...props}>{rows}</tbody>;
+                        // },
+                    }}
                 />
             </PopoverContent>
         </Popover>

@@ -91,7 +91,10 @@ button.daily-date-picker {
         @media (prefers-reduced-motion: reduce) {
             transition: none !important;
         }
-
+        &.available {
+            background: #0f02;
+            border: 1px solid #0f06;
+        }
         &:is(:hover, :focus, :focus-visible) {
             outline: none;
             backdrop-filter: brightness(1.1);
@@ -100,5 +103,6 @@ button.daily-date-picker {
             border: 2px solid cyan;
             
         }
+
     }
 }

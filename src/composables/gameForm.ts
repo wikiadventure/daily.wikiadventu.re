@@ -57,3 +57,24 @@ export const useGameFormStore = create(persist(
         ) => ({ wikiLang: state.wikiLang }), // Persist only wikiLang
     }
 ));
+
+
+const globalDateCache: Partial<Record<LangCode, Date[]>> = {};
+
+export async function fetchAvailableDates(lang: LangCode): Promise<Date[]> {
+    if (globalDateCache[lang]) {
+        return globalDateCache[lang];
+    }
+
+    const response = await fetch(`/daily/${lang}/available`);
+    const text = await response.text();
+    const dates = 
+        text.split("\n")
+            .map(dateStr => {
+                const [year, month, day] = dateStr.split("/").map(Number);
+                return new Date(year, month - 1, day); // Month is zero-based
+            });
+
+    globalDateCache[lang] = dates;
+    return dates;
+}
