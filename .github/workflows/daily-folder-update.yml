@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Run script to generate new file
-        run: npx ts-node .github/workflows/daily-folder-update.ts
+        run: npx ts-node .github/workflows/daily-folder-update.mts
 
       - name: Commit changes
         run: |
