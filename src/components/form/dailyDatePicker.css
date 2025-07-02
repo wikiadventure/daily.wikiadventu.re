@@ -79,6 +79,12 @@ button.daily-date-picker {
             color: #1976d2;
         }
     }
+    td:not(.rdp-disabled) > button {
+        &.available {
+            background: #0f02;
+            border: 1px solid #0f06;
+        }
+    }
     td > button {
         border: 2px solid #0000;
         border-radius: 5px;
@@ -91,10 +97,7 @@ button.daily-date-picker {
         @media (prefers-reduced-motion: reduce) {
             transition: none !important;
         }
-        &.available {
-            background: #0f02;
-            border: 1px solid #0f06;
-        }
+
         &:is(:hover, :focus, :focus-visible) {
             outline: none;
             backdrop-filter: brightness(1.1);
