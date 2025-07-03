@@ -10,15 +10,17 @@
     cursor: not-allowed;
 }
 
-[data-is-body] {
-    background-color: var(--background-color-neutral-subtle, #f8f9fa);
+[data-is-html] {
+    background-color: var(--background-color-base, #f8f9fa);
     color: var(--color-base, #202122);
-    padding: 15px;
+}
+
+[data-is-body] {
     min-height: 100vh;
 }
 
 .wikiLink {
-    color: var(--wiki-link-color)!important;
+    /* color: var(--wiki-link-color)!important; */
 }
 .notWikiLink {
     color: var(--not-wiki-link-color)!important;

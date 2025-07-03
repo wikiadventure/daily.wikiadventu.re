@@ -51,13 +51,13 @@ export default class WikiPageContent {
         return headings
     }
 
-    async fetch(title: string, lang: LangCode, isMobile = false) {
+    async fetch(title: string, lang: LangCode, isMobile:boolean) {
         var url = new URL('https://' + lang + '.wikipedia.org/w/api.php');
         url.search = new URLSearchParams({
             mobileformat: "1",
             action: "parse",
             prop: "text|langlinks|links|externallinks|displaytitle|iwlinks|headhtml",
-            useskin: "vector-2022",
+            useskin: isMobile ? "minerva" : "vector-2022",
             // apioutput cologneblue contenttranslation fallback minerva modern monobook timeless vector vector-2022
             redirects: "1",
             format: "json",
@@ -74,6 +74,7 @@ export default class WikiPageContent {
         this.links = response.parse.links;
         this.formatHead(response.parse.headhtml, lang);
         this.formatHTML(response.parse.text);
+        console.log({title, lang, isMobile});
         return this;
     }
 

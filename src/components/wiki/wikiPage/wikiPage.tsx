@@ -19,6 +19,7 @@ export function WikiPage({ disable, title, onWikiLink, initialPage, wikiLang}:Wi
     const [wikiPage, setWikiPage] = useState(new WikiPageContent());
     const [styleSheets, setStyleSheets] = useState<CSSStyleSheet[]>([]);
     const update = useUpdate();
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 720);
     const [loading, setLoading] = useState(false);
     const [safeModeInterrupted, setSafeModeInterrupted] = useState(false);
     const [linkDisable, setLinkDisable] = useState(false);
@@ -145,7 +146,7 @@ export function WikiPage({ disable, title, onWikiLink, initialPage, wikiLang}:Wi
     };
 
     const fetchArticle = async (title: string, wikiLang:LangCode) => {
-        return await wikiPage.fetch(title, wikiLang, true);
+        return await wikiPage.fetch(title, wikiLang, isMobile);
     };
 
     const scrollToAnchor = (id: string) => {
@@ -170,7 +171,7 @@ export function WikiPage({ disable, title, onWikiLink, initialPage, wikiLang}:Wi
         }
     };
 
-    const vectorHtmlClass = [
+    const vectorHtmlClasses = [
         "vector-feature-language-in-header-enabled",
         "vector-feature-language-in-main-page-header-disabled",
         "vector-feature-page-tools-pinned-disabled",
@@ -187,6 +188,16 @@ export function WikiPage({ disable, title, onWikiLink, initialPage, wikiLang}:Wi
         "skin-theme-clientpref-os",
         // "skin-theme-clientpref-night",
     ];
+
+    const minervaHtmlClasses = [
+        "skin-theme-clientpref-os",
+        "mf-expand-sections-clientpref-0",
+        "mf-font-size-clientpref-small",
+        "mw-mf-amc-clientpref-0",
+    ];
+
+    const htmlClasses = isMobile ? minervaHtmlClasses : vectorHtmlClasses;
+
     useMount(() => {
 
         const convertToCSSStyleSheet = async (cssString: string): Promise<CSSStyleSheet> => {
@@ -196,8 +207,9 @@ export function WikiPage({ disable, title, onWikiLink, initialPage, wikiLang}:Wi
         };
         const loadStyleSheets = async () => {
 
-            const modules = [
+            const desktopModules = [
                 "ext.cite.styles",
+                "ext.relatedArticles.styles",
                 "ext.kartographer.style",
                 "ext.timeline.styles",
                 "ext.uls.interlanguage",
@@ -205,6 +217,7 @@ export function WikiPage({ disable, title, onWikiLink, initialPage, wikiLang}:Wi
                 "ext.wikimediaBadges",
                 "ext.wikimediamessages.styles",
                 "mediawiki.page.gallery.styles",
+                "mediawiki.hlist",
                 "skins.vector.search.codex.styles",
                 "skins.vector.styles",
                 "skins.vector.icons",
@@ -212,7 +225,30 @@ export function WikiPage({ disable, title, onWikiLink, initialPage, wikiLang}:Wi
                 "skins.vector.icons,styles",
                 "site.styles"
             ];
-            const styleApiUrl = `https://${wikiLang}.wikipedia.org/w/load.php?lang=fr&only=styles&skin=vector-2022&modules=`
+
+            const mobileModules = [
+                "ext.cite.styles",
+                "ext.kartographer.style",
+                "ext.timeline.styles",
+                "ext.uls.interlanguage",
+                "ext.relatedArticles.styles",
+                "ext.wikimediaBadges",
+                "ext.wikimediamessages.styles",
+                "mobile.init.styles",
+                "mediawiki.page.gallery.styles",
+                "mediawiki.hlist",
+                "wikibase.client.init",
+                "site.styles",
+                "skins.minerva.codex.styles",
+                "skins.minerva.content.styles.images",
+                "skins.minerva.icons,styles",
+                "ext.gadget.Mobile",
+            ];
+
+            const modules = isMobile ? mobileModules : desktopModules;
+            const skin = isMobile ? 'minerva' : 'vector-2022';
+
+            const styleApiUrl = `https://${wikiLang}.${isMobile ? "m." : ""}wikipedia.org/w/load.php?lang=${wikiLang}&only=styles&skin=${skin}&modules=`
             const styleUrl = `${styleApiUrl}${encodeURIComponent(modules.join("|"))}`;
             const urls = [
                 styleUrl
@@ -223,6 +259,7 @@ export function WikiPage({ disable, title, onWikiLink, initialPage, wikiLang}:Wi
                     let cssText = await response.text();
                     cssText = cssText.replace(/html.skin/g, 'div[data-is-html].skin');
                     const sheet = new CSSStyleSheet();
+                    console.log({cssText});
                     await sheet.replace(cssText);
                     
                     return sheet;
@@ -237,8 +274,8 @@ export function WikiPage({ disable, title, onWikiLink, initialPage, wikiLang}:Wi
 
     return (
         <root.div mode="open" styleSheets={styleSheets} ref={scrollRef}>
-            <div data-is-html role="article" className={[...vectorHtmlClass, "wiki-page"].join(" ")} ref={wikiRef}>
-                <div data-is-body className={disable ? "disable" : ""} >
+            <div data-is-html role="article" className={[...htmlClasses, "wiki-page"].join(" ")} ref={wikiRef}>
+                <div data-is-body className={(disable ? "disable" : "") + " content"} >
                     <h1 className="wiki-title"  style={{textAlign: "center"}}>{title}</h1>
                     <h2 className="wiki-title">{wikiPage.title}</h2>
                     <div className="mw-parser-output" 
