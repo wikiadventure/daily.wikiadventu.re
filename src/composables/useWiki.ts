@@ -25,6 +25,7 @@ export async function loadPreviews(titles: string[], lang: LangCode) {
     for (const page of Object.values(response.query.pages) as WikiRawSuggestion[]) {
         if (page.missing != null) continue;
         previews.push({
+            title: page?.title,
             description: page?.terms?.description[0],
             thumbnail: page?.thumbnail,
             id: page.pageid

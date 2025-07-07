@@ -32,7 +32,7 @@ const formatTime = minS+secS;
 
 const { previews: wikiContentPreviews, response } = await loadPreviews(path50, wikiLang);
 
-const wikiContentPreviewsSorted = path50.map(s=>wikiContentPreviews.find(w=>w.title==s)!);
+const wikiContentPreviewsSorted = path50.map(s=>wikiContentPreviews.find(w=>w?.title==s)!);
 
 const startPage = wikiContentPreviewsSorted[0]?.title ?? path[0].replace(/_/g," ");
 const startPageId = wikiContentPreviewsSorted[0]?.id;
@@ -151,7 +151,7 @@ const ogDescription = `${t('ogDescription')} ${startPage} ${t('to')} ${endPage}`
             <section class="path">
 				{
 					wikiContentPreviewsSorted.map((w=>(
-						<a href={wikiUrl(w.title || '')}>
+						<a href={wikiUrl(w?.title ?? '')}>
 							<WikiPreview beforeTitle="" wikiPreview={w} />
 						</a>
 					)))
