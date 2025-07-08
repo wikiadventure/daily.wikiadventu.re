@@ -1,6 +1,10 @@
 name: Daily Folder Update
 
+permissions:
+  contents: write
+
 on:
+  workflow_dispatch:
   push:
     paths:
       - public/daily/**
