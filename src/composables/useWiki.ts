@@ -40,7 +40,10 @@ export async function getSeededRandomPages(
     seed: string,
     numberOfPages: number
 ) {
-    const highestPageId = await getHighestPageId(lang, date);
+
+    const lastDate = new Date(date);
+    lastDate.setUTCDate(lastDate.getUTCDate() - 1);
+    const highestPageId = await getHighestPageId(lang, lastDate);
 
     const random = createSeededRandomGenerator(seed);
 

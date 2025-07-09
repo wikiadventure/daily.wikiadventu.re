@@ -98,7 +98,7 @@ export function StartButton({ lang }: { lang: LangCode }) {
             setErrorMessage("No daily set for this date. Can't generate a seeded random one for date older than 30 days");
             return;
         }
-        const [start, end] = await getSeededRandomPages(lang, dailyDate, formatDate, 2);
+        const [start, end] = await getSeededRandomPages(wikiLang, dailyDate, formatDate, 2);
         startPlaying({ startPage: start.title, endPage: end.title });
 
 
