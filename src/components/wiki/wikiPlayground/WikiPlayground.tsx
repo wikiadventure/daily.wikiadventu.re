@@ -1,11 +1,12 @@
 "use client";
-import { useGamePlayStore } from "@/composables/gamePlay";
+import { useGamePlayStore, type GamePlayState } from "@/composables/gamePlay";
 import { WikiPage } from "../wikiPage/wikiPage";
 import "./WikiPlayground.css";
 import { lang } from "@/i18n/currentLang";
 import { memo, useEffect, useRef } from "react";
 import type { LangCode } from "@/i18n/lang";
 import { useMount } from "@/composables/useMount";
+import { useShallow } from "zustand/react/shallow";
 
 function WikiStartEndPagesRaw(
     { startPage, endPage, onWikiLink, wikiLang }:
@@ -67,16 +68,24 @@ const WikiStartEndPages = memo(WikiStartEndPagesRaw, (p, n) => {
 
 export function WikiPlayground() {
     const {
-        wikiLang, startPage, endPage, historyPush,
-        timerTime, timerStart, timerPause, timerFormatTime 
-    } = useGamePlayStore();
+        wikiLang, startPage, endPage,
+        timerTime, timerFormatTime 
+    } = useGamePlayStore(
+        useShallow((state) => ({
+            wikiLang: state.wikiLang,
+            startPage: state.startPage,
+            endPage: state.endPage,
+            timerTime: state.timerTime,
+            timerFormatTime: state.timerFormatTime,
+        } satisfies Partial<GamePlayState>)), 
+    );
 
     useMount(() => {
-        timerStart();
+        useGamePlayStore.getState().timerStart();
     });
 
     function onWikiLink(link: string) {
-        historyPush(link);
+        useGamePlayStore.getState().historyPush(link);
         console.log("LINK", link);
         console.log("ENDPAGE", endPage?.title!);
         console.log("EQUAL", link == endPage?.title!);
@@ -86,8 +95,8 @@ export function WikiPlayground() {
     }
 
     function onWin() {
+        const { wikiLang, history, timerTime: time, timerPause } = useGamePlayStore.getState();
         timerPause();
-        const { wikiLang, history, timerTime: time } = useGamePlayStore.getState();
         window.location.href = `/${lang}/result/${wikiLang}wiki?time=${time}&path=${history.map(s => encodeURIComponent(s)).join("|")}`;
     }
 

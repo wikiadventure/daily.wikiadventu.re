@@ -1,11 +1,17 @@
 "use client"
-import {  useGameFormStore } from "@/composables/gameForm"
+import {  useGameFormStore, type GameFormState } from "@/composables/gameForm"
 import { type LangCode } from "@/i18n/lang";
 import { useTranslations, type Translations } from "@/composables/useTranslation";
 import "./reverseCheckbox.css";
+import { useShallow } from "zustand/react/shallow";
 
 export function ReverseCheckbox({ lang }: { lang: LangCode }) {
-    const { reverse, setReverse } = useGameFormStore();
+    const { reverse, setReverse } = useGameFormStore(
+        useShallow((state) => ({
+            reverse: state.reverse,
+            setReverse: state.setReverse,
+        } satisfies Partial<GameFormState>)),   
+    );
     type ReverseCheckboxTranslation = {
         reverse: string
     }

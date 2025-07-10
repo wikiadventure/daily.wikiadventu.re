@@ -2,7 +2,7 @@ import { create } from "zustand";
 import type { DailyWikiLang, GameFormState } from "./gameForm";
 import type { WikiContentPreview } from "./useWiki";
 
-type GamePlayState = GameFormState & {
+export type GamePlayState = GameFormState & {
 
     history: string[];
     historyPush: (e: string) => void;

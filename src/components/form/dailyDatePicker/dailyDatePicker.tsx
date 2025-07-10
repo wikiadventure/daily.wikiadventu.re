@@ -8,13 +8,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import "./dailyDatePicker.css";
-import { useGameFormStore } from "@/composables/gameForm";
+import { useGameFormStore, type GameFormState } from "@/composables/gameForm";
 import type { LangCode } from "@/i18n/lang";
 import { enUS as en, fr, de, eo, type Locale } from "react-day-picker/locale";
 import { isAfter } from "date-fns";
 import { useState } from "react";
 import { useMount } from "@/composables/useMount";
 import { fetchAvailableDates } from "@/composables/gameForm";
+import { useShallow } from "zustand/react/shallow";
 
 const calendarLocales:Record<LangCode, Locale> = {
     en,
@@ -25,10 +26,15 @@ const calendarLocales:Record<LangCode, Locale> = {
 
 export function DailyDatePicker({ lang }: { lang: LangCode }) {
     const [open, setOpen] = useState(false);
-    const { dailyDate, setDailyDate } = useGameFormStore();
+    const { dailyDate, setDailyDate, wikiLang } = useGameFormStore(
+        useShallow((state) => ({
+            dailyDate: state.dailyDate,
+            setDailyDate: state.setDailyDate,
+            wikiLang: state.wikiLang,
+        } satisfies Partial<GameFormState>)),   
+    );
     const [availableDates, setAvailableDates] = useState<Date[]>([]);
-
-    fetchAvailableDates(lang).then((dates) => {
+    fetchAvailableDates(wikiLang).then((dates) => {
         setAvailableDates(dates);
     }).catch();
 
