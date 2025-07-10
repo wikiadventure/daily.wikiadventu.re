@@ -30,6 +30,9 @@
             background: #ddd;
             border-radius: 10px;
         }
+        &:disabled {
+            color: #444;
+        }
     }
     > p {
         color: red;

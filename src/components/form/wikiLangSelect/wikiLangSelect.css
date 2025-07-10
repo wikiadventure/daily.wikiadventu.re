@@ -25,6 +25,7 @@ button.wiki-lang-select {
 }
 
 .wiki-lang-select.pop-up {
+    z-index: 3;
     div[role="presentation"] {
         display: flex;
         flex-direction: column;
@@ -35,10 +36,12 @@ button.wiki-lang-select {
     }
     div[role="option"] {
         padding: 15px;
+        border: 2px solid transparent;
         outline: none;
-        &:is(:focus, :focus-visible) {
+        &:is(:focus, :focus-visible, [data-highlighted]) {
             background: #ddd;
             background: hsl(0, 0%, 87%);
+            border: 2px solid cyan;
             &[data-state="checked"] {
                 background: hsl(210, 50%, 87%);
             }

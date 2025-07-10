@@ -1,6 +1,6 @@
 "use client";
 import { useGamePlayStore } from "@/composables/gamePlay";
-import { WikiPage } from "./wikiPage/wikiPage";
+import { WikiPage } from "../wikiPage/wikiPage";
 import "./WikiPlayground.css";
 import { lang } from "@/i18n/currentLang";
 import { memo, useEffect, useRef } from "react";
@@ -77,7 +77,10 @@ export function WikiPlayground() {
 
     function onWikiLink(link: string) {
         historyPush(link);
-        if (link.replaceAll(/\s/g, "_") == decodeURI(endPage)) {
+        console.log("LINK", link);
+        console.log("ENDPAGE", endPage?.title!);
+        console.log("EQUAL", link == endPage?.title!);
+        if (link == endPage?.title!) {
             onWin();
         }
     }
@@ -91,7 +94,7 @@ export function WikiPlayground() {
     return (
         <div className="wiki-playground">
             <div className="time-elapsed">{timerFormatTime(timerTime)}</div>
-            <WikiStartEndPages startPage={startPage} endPage={endPage} onWikiLink={onWikiLink} wikiLang={wikiLang} />
+            <WikiStartEndPages startPage={startPage?.title!} endPage={endPage?.title!} onWikiLink={onWikiLink} wikiLang={wikiLang} />
         </div>
     )
 }

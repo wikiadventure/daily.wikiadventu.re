@@ -28,14 +28,9 @@ export function DailyDatePicker({ lang }: { lang: LangCode }) {
     const { dailyDate, setDailyDate } = useGameFormStore();
     const [availableDates, setAvailableDates] = useState<Date[]>([]);
 
-    // Used to load default state after hydration
-    useMount(() => {
-        if (dailyDate == null) setDailyDate(new Date());
-
-        fetchAvailableDates(lang).then((dates) => {
-            setAvailableDates(dates);
-        });
-    });
+    fetchAvailableDates(lang).then((dates) => {
+        setAvailableDates(dates);
+    }).catch();
 
     return (
         <Popover open={open} onOpenChange={setOpen}>

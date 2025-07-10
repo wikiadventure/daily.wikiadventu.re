@@ -1,7 +1,7 @@
 import type { LangCode } from "@/i18n/lang";
 import { createSeededRandomGenerator, generateCloseNumbers } from "./numberUtils";
 
-export async function loadPreviews(titles: string[], lang: LangCode) {
+export async function loadPreviews(titles: string[], lang: LangCode, signal?: AbortSignal) {
     var url = new URL('https://' + lang + '.wikipedia.org/w/api.php');
     url.search = new URLSearchParams({
         action: 'query',
@@ -15,7 +15,7 @@ export async function loadPreviews(titles: string[], lang: LangCode) {
         wbptterms: 'description',
         origin: '*',
     }).toString();
-    const response: PreviewsResponse = await fetch(url.toString(), { headers: wikiHeaders })
+    const response: PreviewsResponse = await fetch(url.toString(), { headers: wikiHeaders, signal })
         .then((r) => r.json())
         .catch((error) => {
             console.log(error);
@@ -38,7 +38,8 @@ export async function getSeededRandomPages(
     lang: string,
     date: Date,
     seed: string,
-    numberOfPages: number
+    numberOfPages: number,
+    signal?: AbortSignal
 ) {
 
     const lastDate = new Date(date);
@@ -47,10 +48,10 @@ export async function getSeededRandomPages(
 
     const random = createSeededRandomGenerator(seed);
 
-    const randomPageIds = Array.from({ length: numberOfPages }, (_,i) =>
+    const randomPageIds = Array.from({ length: numberOfPages }, (_, i) =>
         random(highestPageId)
     );
-    const pages: { pageid:number, title:string }[] = [];
+    const pages: { pageid: number, title: string }[] = [];
 
     findRandomPage: for (const pageId of randomPageIds) {
         const url = new URL(`https://${lang}.wikipedia.org/w/api.php`);
@@ -74,13 +75,13 @@ export async function getSeededRandomPages(
                 pages: WikiPageInfo[],
             }
         }
-        const response = await fetch(url.toString(), { headers: wikiHeaders });
+        const response = await fetch(url.toString(), { headers: wikiHeaders, signal });
         const json: ApiReturn = await response.json();
-        let page_id_to_page_info = json.query.pages.reduce((acc,p)=>{
+        let page_id_to_page_info = json.query.pages.reduce((acc, p) => {
             acc[p.pageid] = p;
             return acc;
-        },{} as Record<number, WikiPageInfo>);
-        
+        }, {} as Record<number, WikiPageInfo>);
+
         for (const page_id of page_ids_sequence) {
             const page = page_id_to_page_info[page_id];
             if (!("missing" in page) && page.ns == 0 && page.redirect == null) {
@@ -93,6 +94,7 @@ export async function getSeededRandomPages(
 
     return pages;
 }
+
 
 export async function getHighestPageId(lang: string, date:Date): Promise<number> {
   const url = new URL(`https://${lang}.wikipedia.org/w/api.php`);
@@ -121,6 +123,67 @@ export async function getHighestPageId(lang: string, date:Date): Promise<number>
   return pageId;
 }
 
+
+let abortSuggestions = new AbortController();
+export async function loadSuggestions(input: string, wikiLang: LangCode, n = 5):Promise<WikiContentPreview[]> {
+    abortSuggestions.abort();
+    abortSuggestions = new AbortController();
+    const url = new URL(`https://${wikiLang}.wikipedia.org/w/api.php`);
+    url.search = new URLSearchParams({
+        action: "query",
+        format: "json",
+        formatversion: "2",
+        gpssearch: input,
+        generator: "prefixsearch",
+        prop: "description|pageimages|pageviews",
+        redirects: "1",
+        piprop: "thumbnail",
+        pithumbsize: "160",
+        pilimit: "30",
+        gpslimit: n.toString(),
+        origin: "*",
+    }).toString();
+    try {
+        const response: WikiPreviewResponse = await fetch(url.toString(), { headers: wikiHeaders, signal: abortSuggestions.signal })
+            .then((r) => r.json())
+        if (typeof response?.query?.pages === 'undefined') return [];
+        return response.query.pages
+            .sort((a, b) => a.index - b.index)
+            .map(p => ({
+                id: p.pageid,
+                title: p.title,
+                description: p.description,
+                thumbnail: p.thumbnail,
+            }));
+    } catch (e) {
+        return [];
+    }
+}
+
+export interface WikiThumbnail {
+    source: string,
+    width: number,
+    height: number
+}
+
+export interface WikiRawPreview {
+    ns: number,
+    pageid: number,
+    index: number,
+    title: string,
+    description: string,
+    thumbnail: WikiThumbnail,
+    missing?: string
+}
+
+
+export interface WikiPreviewResponse {
+    query: {
+        pages: WikiRawPreview[]
+    }
+}
+
+
 export type WikiRawSuggestion = {
     pageid: number,
     ns: number,
@@ -129,22 +192,14 @@ export type WikiRawSuggestion = {
     terms: {
         description: string[]
     },
-    thumbnail: {
-        source: string,
-        width: number,
-        height: number
-    }
+    thumbnail: WikiThumbnail,
     missing?: string
 }
 
 export interface WikiContentPreview {
     title?: string,
     description?: string
-    thumbnail?: {
-        source: string,
-        width: number,
-        height: number
-    },
+    thumbnail?: WikiThumbnail,
     id: number
 }
 
@@ -178,7 +233,7 @@ type WikiPageInfo = {
     touched: string,
     lastrevid: number,
     length: number,
-    redirect?:true
+    redirect?: true
 } | {
     pageid: number,
     missing: true

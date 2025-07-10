@@ -1,12 +1,13 @@
 ---
-import { DailyDatePicker } from "@/components/form/dailyDatePicker";
+import { DailyDatePicker } from "@/components/form/dailyDatePicker/dailyDatePicker";
 import CompactLangSwitch from "../../components/compactLangSwitch/compactLangSwitch";
 import LogoShowIn from "../../components/cosmetic/logoShowIn.astro";
-import { WikiLangSelect } from "@/components/form/wikiLangSelect";
+import { WikiLangSelect } from "@/components/form/wikiLangSelect/wikiLangSelect";
 import { useTranslations, type Translations } from "@/composables/useTranslation";
-import { ReverseCheckbox } from "@/components/form/reverseCheckbox";
-import { StartButton } from "@/components/form/startButton";
+import { ReverseCheckbox } from "@/components/form/reverseCheckbox/reverseCheckbox";
+import { StartButton } from "@/components/form/startButton/startButton";
 import { langsKey } from "@/i18n/lang";
+import { WikiChallengeInput } from "@/components/form/wikiChallengeInput/wikiChallengeInput";
 
 export function getStaticPaths() {
 	return langsKey.map((k) => ({
@@ -132,6 +133,7 @@ const { t } = useTranslations(lang, translations);
 					<ReverseCheckbox lang={lang} client:load>
 						<div slot="fallback">Loading reverse checkbox</div>
 					</ReverseCheckbox>
+					<WikiChallengeInput client:load/>
 					<div>
 						<StartButton lang={lang} client:load></StartButton>
 					</div>
@@ -171,7 +173,7 @@ html, body {
 
 
 main {
-	min-height: 100vh;
+
 }
 
 .display-none-during-play {
@@ -179,6 +181,8 @@ main {
 }
 
 .Home.select {
+	min-height: 100vh;
+	overflow-y: scroll;
 	overflow-x: hidden;
 	display: flex;
 	align-items: center;
@@ -200,19 +204,8 @@ main {
 	.logo-show-in {
 		--logo-height: min(8em, 25vw);
 	}
-	section {
-		width: 100%;
-		display: flex;
-		justify-content: space-evenly;
-		flex-wrap: wrap;
-		gap: 15px;
-		div {
-			display: grid;
-			place-items: center;
-		}
-	}
 
-	form {
+	> form {
 		display: flex;
 		width: 100%;
 		flex-wrap: wrap;
@@ -226,6 +219,9 @@ main {
 			display: flex;
 			justify-content: center;
 			align-items: center;
+		}
+		.wiki-challenge-input {
+			flex: 1 1 100%;
 		}
 	}
 }

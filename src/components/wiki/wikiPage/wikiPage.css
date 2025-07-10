@@ -15,6 +15,10 @@
     color: var(--color-base, #202122);
 }
 
+[data-is-html]:not([data-is-mobile]) [data-is-body]  {
+    padding: 0 15px;
+}
+
 [data-is-body] {
     min-height: 100vh;
 }

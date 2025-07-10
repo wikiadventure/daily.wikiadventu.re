@@ -1,6 +1,6 @@
 "use client"
-import { dailyAvailableIn, defaultWikiLang, useGameFormStore } from "@/composables/gameForm"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { dailyAvailableIn, defaultWikiLang, useGameFormStore } from "@/composables/gameForm";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../ui/select";
 import { langs, type LangCode } from "@/i18n/lang";
 import { useTranslations, type Translations } from "@/composables/useTranslation";
 import "./wikiLangSelect.css";

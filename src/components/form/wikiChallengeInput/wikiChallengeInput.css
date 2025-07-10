@@ -1,0 +1,14 @@
+.wiki-challenge-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    > .wiki-title-input {
+        max-width: 55ch;
+        flex: 1 1;
+    }
+    > .arrow {
+        flex: 0 0;
+    }
+}

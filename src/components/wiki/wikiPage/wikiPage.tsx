@@ -274,7 +274,8 @@ export function WikiPage({ disable, title, onWikiLink, initialPage, wikiLang}:Wi
 
     return (
         <root.div mode="open" styleSheets={styleSheets} ref={scrollRef}>
-            <div data-is-html role="article" className={[...htmlClasses, "wiki-page"].join(" ")} ref={wikiRef}>
+            <div data-is-html role="article" {...(isMobile && { "data-is-mobile": true })}
+                    className={[...htmlClasses, "wiki-page"].join(" ")} ref={wikiRef}>
                 <div data-is-body className={(disable ? "disable" : "") + " content"} >
                     <h1 className="wiki-title"  style={{textAlign: "center"}}>{title}</h1>
                     <h2 className="wiki-title">{wikiPage.title}</h2>

@@ -1,12 +1,8 @@
 import { create } from "zustand";
 import type { DailyWikiLang, GameFormState } from "./gameForm";
+import type { WikiContentPreview } from "./useWiki";
 
 type GamePlayState = GameFormState & {
-    startPage: string;
-    setStartPage: (s: string) => void;
-
-    endPage: string;
-    setEndPage: (e: string) => void;
 
     history: string[];
     historyPush: (e: string) => void;
@@ -83,12 +79,12 @@ export const useGamePlayStore = create<GamePlayState>(
             setReverse: (b: boolean) =>
                 set((state: GamePlayState) => ({ ...state, reverse: b }) satisfies GamePlayState),
 
-            startPage: "",
-            setStartPage: (s: string) =>
+            startPage: null as WikiContentPreview|null,
+            setStartPage: (s: WikiContentPreview|null) =>
                 set((state: GamePlayState) => ({ ...state, startPage: s }) satisfies GamePlayState),
 
-            endPage: "",
-            setEndPage: (e: string) =>
+            endPage: null as WikiContentPreview|null,
+            setEndPage: (e: WikiContentPreview|null) =>
                 set((state: GamePlayState) => ({ ...state, endPage: e }) satisfies GamePlayState),
 
             history: [],
