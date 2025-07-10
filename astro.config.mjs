@@ -22,14 +22,6 @@ export default defineConfig({
   integrations: [react()],
 
   vite: {
-    optimizeDeps: {
-      include: ['react-use'], // Force Vite to pre-bundle the ESM version
-    },
-    resolve: {
-      alias: {
-        'react-use': 'react-use/esm/index.js', // Force Vite to use the ESM version
-      },
-    },
     plugins:[
       Icons({ compiler: 'jsx', jsx: 'react' }),
       tailwindcss(),

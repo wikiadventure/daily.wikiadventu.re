@@ -29,6 +29,7 @@
     "@radix-ui/react-popover": "^1.1.14",
     "@radix-ui/react-select": "^2.2.5",
     "@radix-ui/react-slot": "^1.2.3",
+    "@react-hookz/web": "^25.1.1",
     "@svgr/plugin-jsx": "^8.1.0",
     "@tailwindcss/vite": "^4.1.11",
     "@types/react": "^19.1.8",
@@ -42,7 +43,6 @@
     "react-day-picker": "^9.7.0",
     "react-dom": "^19.1.0",
     "react-shadow": "^20.6.0",
-    "react-use": "^17.6.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.11",
     "zustand": "^5.0.6"
