@@ -55,41 +55,48 @@ export async function getSeededRandomPages(
 
     findRandomPage: for (const pageId of randomPageIds) {
         const url = new URL(`https://${lang}.wikipedia.org/w/api.php`);
-        const page_ids_sequence = generateCloseNumbers(pageId, 0, highestPageId, 50);
-        const params: Record<string, string> = {
-            action: "query",
-            format: "json",
-            pageids: page_ids_sequence.join("|"),
-            prop: "info",
-            formatversion: "2",
-            origin: "*"
-        };
+        const { generateBatch } = generateCloseNumbers(pageId, 0, highestPageId, 50);
+        const MAX_BATCH_TRIES = 3;
+        let tries = 0;
+        while (true) {
+            if (tries++ >= MAX_BATCH_TRIES) throw `Unable to find seeded Random in ${tries} batchs of 50 pages`;
+            const page_ids_sequence = generateBatch();
+            const params: Record<string, string> = {
+                action: "query",
+                format: "json",
+                pageids: page_ids_sequence.join("|"),
+                prop: "info",
+                formatversion: "2",
+                origin: "*"
+            };
 
-        Object.keys(params).forEach((key) => {
-            url.searchParams.append(key, params[key]);
-        });
+            Object.keys(params).forEach((key) => {
+                url.searchParams.append(key, params[key]);
+            });
 
-        type ApiReturn = {
-            batchcomplete: true,
-            query: {
-                pages: WikiPageInfo[],
+            type ApiReturn = {
+                batchcomplete: true,
+                query: {
+                    pages: WikiPageInfo[],
+                }
+            }
+            const response = await fetch(url.toString(), { headers: wikiHeaders, signal });
+            const json: ApiReturn = await response.json();
+            let page_id_to_page_info = json.query.pages.reduce((acc, p) => {
+                acc[p.pageid] = p;
+                return acc;
+            }, {} as Record<number, WikiPageInfo>);
+
+            for (const page_id of page_ids_sequence) {
+                const page = page_id_to_page_info[page_id];
+                if (!("missing" in page) && page.ns == 0 && page.redirect == null) {
+                    pages.push({ pageid: page.pageid, title: page.title });
+                    continue findRandomPage;
+                }
             }
         }
-        const response = await fetch(url.toString(), { headers: wikiHeaders, signal });
-        const json: ApiReturn = await response.json();
-        let page_id_to_page_info = json.query.pages.reduce((acc, p) => {
-            acc[p.pageid] = p;
-            return acc;
-        }, {} as Record<number, WikiPageInfo>);
 
-        for (const page_id of page_ids_sequence) {
-            const page = page_id_to_page_info[page_id];
-            if (!("missing" in page) && page.ns == 0 && page.redirect == null) {
-                pages.push({ pageid: page.pageid, title: page.title });
-                continue findRandomPage;
-            }
-        }
-        throw "Unable to find seeded Random in 50 page batch";
+        
     }
 
     return pages;

@@ -9,7 +9,7 @@ type WikiPreviewProps =  DOMAttributes<HTMLDivElement> & ComponentProps<"div"> &
 
 export function WikiPreview({ wikiContentPreview, ...props }:WikiPreviewProps) {
     return [
-    <div className="wiki-preview" {...props} >
+    <div className="wiki-preview" {...props} key={wikiContentPreview?.id ?? "unknown"}>
         <WikiThumbnail thumbnail={wikiContentPreview?.thumbnail ?? null} />
         <h3>{(wikiContentPreview?.title || "???")}<slot /></h3>
         <p>{wikiContentPreview?.description || "???"}</p>

@@ -103,7 +103,6 @@ export function WikiTitleInput({ wikiPreview, setWikiPreview, wikiLang }: WikiTi
         }
     }
 
-
     return (
         <div className="wiki-title-input" ref={containerRef} onKeyUp={handleArrowNav}>
             <input
@@ -118,12 +117,13 @@ export function WikiTitleInput({ wikiPreview, setWikiPreview, wikiLang }: WikiTi
                         onClick={() => handleSuggestionClick(w)}
                         onKeyUp={(e:React.KeyboardEvent) => handleSuggestionKeyPress(e, w)}
                         // disableGotoWiki
-                        // accessKey="enter"
+                        accessKey="enter"
                         tabIndex={0} // Make it focusable
-                    />
+                    /> 
                 ))}
             </div>
             <WikiPreview
+                key={wikiPreview?.id}
                 wikiContentPreview={wikiPreview}
                 tabIndex={-1}
             />

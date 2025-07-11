@@ -1,17 +1,20 @@
 export function generateCloseNumbers(start: number, min: number, max: number, length:number) {
     const size = length > (max-min) ? (max-min) : length;
-    const result: number[] = [];
     const alternatingGenerator = alternatingSequence(start);
-
-    while (result.length < size) {
-        const next = alternatingGenerator.next().value;
-        if (next < min || next > max) {
-            continue;
+    
+    function generateBatch() {
+        const result: number[] = [];
+        while (result.length < size) {
+            const next = alternatingGenerator.next().value;
+            if (next < min || next > max) {
+                continue;
+            }
+            result.push(next);
         }
-        result.push(next);
+        return result;
     }
 
-    return result;
+    return { generateBatch };
 }
 
 export function* alternatingSequence(start: number): Generator<number> {
