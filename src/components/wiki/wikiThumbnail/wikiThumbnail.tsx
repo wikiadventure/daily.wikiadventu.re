@@ -1,4 +1,4 @@
-import IconQuestionMark from '~icons/material-symbols/question-mark-rounded?width=4em&height=4em';
+import IconQuestionMark from '~icons/material-symbols/question-mark-rounded';
 import './wikiThumbnail.css';
 import type { WikiThumbnail } from '@/composables/useWiki';
 import type { ComponentProps } from 'react';
