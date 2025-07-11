@@ -98,7 +98,14 @@ export async function getSeededRandomPages(
 
         
     }
+    console.log({
+        lastDate,
+        highestPageId,
+        randomPageIds,
+        pages,
 
+
+    })
     return pages;
 }
 
@@ -111,7 +118,7 @@ export async function getHighestPageId(lang: string, date:Date): Promise<number>
     list: "recentchanges",
     formatversion: "2",
     rcend: date.toISOString(),
-    rcdir: "newer",
+    rcdir: "older",
     rcnamespace: "0",
     rcprop: "ids",
     rclimit: "1",
