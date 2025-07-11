@@ -69,12 +69,13 @@ const WikiStartEndPages = memo(WikiStartEndPagesRaw, (p, n) => {
 export function WikiPlayground() {
     const {
         wikiLang, startPage, endPage,
-        timerTime, timerFormatTime 
+        reverse, timerTime, timerFormatTime 
     } = useGamePlayStore(
         useShallow((state) => ({
             wikiLang: state.wikiLang,
             startPage: state.startPage,
             endPage: state.endPage,
+            reverse: state.reverse,
             timerTime: state.timerTime,
             timerFormatTime: state.timerFormatTime,
         } satisfies Partial<GamePlayState>)), 
@@ -84,12 +85,11 @@ export function WikiPlayground() {
         useGamePlayStore.getState().timerStart();
     });
 
+    const [start, end] = reverse ? [endPage?.title!, startPage?.title!] : [startPage?.title!, endPage?.title!];
+
     function onWikiLink(link: string) {
         useGamePlayStore.getState().historyPush(link);
-        console.log("LINK", link);
-        console.log("ENDPAGE", endPage?.title!);
-        console.log("EQUAL", link == endPage?.title!);
-        if (link == endPage?.title!) {
+        if (link == end) {
             onWin();
         }
     }
@@ -100,10 +100,12 @@ export function WikiPlayground() {
         window.location.href = `/${lang}/result/${wikiLang}wiki?time=${time}&path=${history.map(s => encodeURIComponent(s)).join("|")}`;
     }
 
+    
+
     return (
         <div className="wiki-playground">
             <div className="time-elapsed">{timerFormatTime(timerTime)}</div>
-            <WikiStartEndPages startPage={startPage?.title!} endPage={endPage?.title!} onWikiLink={onWikiLink} wikiLang={wikiLang} />
+            <WikiStartEndPages startPage={start} endPage={end} onWikiLink={onWikiLink} wikiLang={wikiLang} />
         </div>
     )
 }
