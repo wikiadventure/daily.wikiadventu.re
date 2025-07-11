@@ -44,7 +44,6 @@ export function defaultWikiLang(): DailyWikiLang {
 let loadStartEndPageAbortController = new AbortController();
 
 async function loadStartEndPage() {
-    console.trace("loadStartEndPage");
     const  { dailyDate, wikiLang, setStartPage, setEndPage } = useGameFormStore.getState();
     setStartPage(null);
     setEndPage(null);
@@ -92,7 +91,6 @@ async function loadStartEndPage() {
     const startPreviews = wikiContentPreviews.find(w=>w.title == daily.startPageTitle)!;
     const endPreviews   = wikiContentPreviews.find(w=>w.title == daily.endPageTitle)!;
     if (startPreviews == null || endPreviews == null) {
-        alert("AAAAAAAAAAAAAHHHHHHH")
         console.error({startPreviews});
         console.error({endPreviews});
         console.error({response});
@@ -146,7 +144,6 @@ export const useGameFormStore = create(persist(
 
 async function resumeFromUrl() {
     if (typeof window == "undefined") return;
-    console.log("RESUME FROM URL");
     const params = new URLSearchParams(window.location.search);
 
     const wikiLang = params.get("wikiLang") as DailyWikiLang | null;
@@ -196,9 +193,9 @@ async function resumeFromUrl() {
     } else {
         await loadStartEndPage();
     }
-    console.log("RESUME THIS :", {newAsyncState});
+    // console.log("RESUME THIS :", {newAsyncState});
     useGameFormStore.setState(newAsyncState);
-    console.log("GOT THAT :", useGameFormStore.getState());
+    // console.log("GOT THAT :", useGameFormStore.getState());
 }
 
 resumeFromUrl();
