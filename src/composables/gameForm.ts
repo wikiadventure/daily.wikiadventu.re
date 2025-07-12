@@ -34,7 +34,6 @@ export function defaultWikiLang(): DailyWikiLang {
     if (typeof document !== "undefined") {
         const currentUrl = document.location.pathname;
         const parsedLocal = currentUrl.split("/").at(1);
-        console.log({parsedLocal});
         return (dailyAvailableIn.includes(parsedLocal as DailyWikiLang) ? parsedLocal : "en") as DailyWikiLang;
     }
     return "en";
