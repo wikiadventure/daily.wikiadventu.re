@@ -57,7 +57,6 @@ async function loadStartEndPage() {
     const url = `/daily/${wikiLang}/${formatDate}`;
 
     let daily = await fetch(url, {
-        redirect: "error",
         signal
     })
         .then(async r => {return { text: await r.text(), res: r}})

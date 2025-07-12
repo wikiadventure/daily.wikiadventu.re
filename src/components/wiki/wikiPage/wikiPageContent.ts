@@ -67,7 +67,7 @@ export default class WikiPageContent {
             disableeditsection: "1",
             page: title
         }).toString();
-        const response: wikiResponse = await fetch(url.toString(), { headers: wikiHeaders })
+        const response: wikiResponse = await fetch(url.toString(), { credentials: 'omit', headers: wikiHeaders })
             .then(r => r.json());
         // this.isMobile = isMobile;
         this.title = response.parse.title;
@@ -83,7 +83,8 @@ export default class WikiPageContent {
         const selectors = '.navbox, .navbar, .ambox, .sistersitebox, .mw-empty-elt, .lazy-image-placeholder, script';
         this.doc.querySelectorAll(selectors)
             .forEach(e => e.parentElement!.removeChild(e));
-
+        this.doc.querySelectorAll("img")
+            .forEach(e => e.setAttribute("crossorigin","anonymous"));
         this.doc.querySelectorAll("noscript")
             .forEach(e => {
                 const temp = document.createElement('div');
