@@ -16,7 +16,7 @@ export function ThemePicker() {
 
 	return (
 		<Select onValueChange={(value) => setTheme(value as any)} value={theme}>
-			<SelectTrigger className="theme-picker select">
+			<SelectTrigger aria-label="Theme select" className="theme-picker select">
 				<SelectValue placeholder="Theme" />
 			</SelectTrigger>
 			<SelectContent align="end" className="theme-picker pop-up">

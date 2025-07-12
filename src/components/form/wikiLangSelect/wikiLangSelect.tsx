@@ -44,7 +44,7 @@ export function WikiLangSelect({ lang }: { lang: LangCode }) {
     
     return (
         <Select value={wikiLang} onValueChange={(value) => setWikiLang(value as LangCode)} >
-            <SelectTrigger className="wiki-lang-select">
+            <SelectTrigger className="wiki-lang-select" aria-label="Wiki language select">
                 <label htmlFor="wikiLangInput">{t("wikiLang")}</label>
                 {wikiLang && <SelectValue id="wikiLangInput"/>}
             </SelectTrigger>

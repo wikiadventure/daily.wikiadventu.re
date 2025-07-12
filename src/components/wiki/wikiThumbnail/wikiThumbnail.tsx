@@ -11,7 +11,7 @@ export function WikiThumbnail({ thumbnail, ...props }: WikiThumbnailProp) {
   if (thumbnail) {
     return (
       <div className="wiki-thumbnail" {...props}>
-        <img src={thumbnail.source} width={thumbnail.width} height={thumbnail.height} alt="Wikipedia article thumbnail" />
+        <img src={thumbnail.source} width={thumbnail.width} height={thumbnail.height} alt="Wikipedia article thumbnail" crossOrigin="anonymous" />
       </div>
     );
   }

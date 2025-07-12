@@ -38,6 +38,7 @@ const CompactLangSwitch: React.FC<CompactLangSwitchProps> = ({ url }) => {
 
   return (
     <button tabIndex={0} className="compact-lang-switch"
+          aria-label="Language select"
           onClick={() => dialogRef.current?.showModal()}
           onKeyDown={(event) => {if (event.key === "Enter") dialogRef.current?.showModal();}}
     >

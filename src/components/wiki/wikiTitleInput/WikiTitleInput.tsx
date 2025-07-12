@@ -9,11 +9,11 @@ import type { LangCode } from '@/i18n/lang';
 interface WikiTitleInputProps {
     wikiPreview: WikiContentPreview | null;
     setWikiPreview: (w:WikiContentPreview) => void,
-
+    inputAriaLabel: string,
     wikiLang: LangCode;
 }
 
-export function WikiTitleInput({ wikiPreview, setWikiPreview, wikiLang }: WikiTitleInputProps) {
+export function WikiTitleInput({ wikiPreview, setWikiPreview, wikiLang, inputAriaLabel }: WikiTitleInputProps) {
     const [input, setInput] = useState("");
     const [suggestions, setSuggestions] = useState<WikiContentPreview[]>([]);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -106,6 +106,7 @@ export function WikiTitleInput({ wikiPreview, setWikiPreview, wikiLang }: WikiTi
     return (
         <div className="wiki-title-input" ref={containerRef} onKeyUp={handleArrowNav}>
             <input
+                aria-label={inputAriaLabel}
                 value={input}
                 onChange={handleInputChange}
             />

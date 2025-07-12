@@ -15,7 +15,7 @@ export async function loadPreviews(titles: string[], lang: LangCode, signal?: Ab
         wbptterms: 'description',
         origin: '*',
     }).toString();
-    const response: PreviewsResponse = await fetch(url.toString(), { headers: wikiHeaders, signal })
+    const response: PreviewsResponse = await fetch(url.toString(), { credentials: 'omit', headers: wikiHeaders, signal })
         .then((r) => r.json())
         .catch((error) => {
             console.log(error);
@@ -80,7 +80,7 @@ export async function getSeededRandomPages(
                     pages: WikiPageInfo[],
                 }
             }
-            const response = await fetch(url.toString(), { headers: wikiHeaders, signal });
+            const response = await fetch(url.toString(), { credentials: 'omit', headers: wikiHeaders, signal });
             const json: ApiReturn = await response.json();
             let page_id_to_page_info = json.query.pages.reduce((acc, p) => {
                 acc[p.pageid] = p;
@@ -130,7 +130,7 @@ export async function getHighestPageId(lang: string, date:Date): Promise<number>
     url.searchParams.append(key, params[key]);
   });
 
-  const response = await fetch(url.toString(), { headers: wikiHeaders });
+  const response = await fetch(url.toString(), { credentials: 'omit', headers: wikiHeaders });
   const json = await response.json();
   const pageId = json.query.recentchanges[0].pageid;
 
@@ -158,7 +158,7 @@ export async function loadSuggestions(input: string, wikiLang: LangCode, n = 5):
         origin: "*",
     }).toString();
     try {
-        const response: WikiPreviewResponse = await fetch(url.toString(), { headers: wikiHeaders, signal: abortSuggestions.signal })
+        const response: WikiPreviewResponse = await fetch(url.toString(), { credentials: 'omit', headers: wikiHeaders, signal: abortSuggestions.signal })
             .then((r) => r.json())
         if (typeof response?.query?.pages === 'undefined') return [];
         return response.query.pages

@@ -11,11 +11,11 @@ const { title } = Astro.props;
 <div class="logo-show-in">
     <div class="zTransform">
         <div class="logo">
-        <Image src={logoImg} alt="wikipedia logo" width="37" height="32"/>
+        <Image src={logoImg} alt="wikipedia logo" width="145" height="126"/>
         </div>
     </div>
     {
-    title == null ? <Image class="title" src={titleImg} alt="WikiAdventure" width="2171" height="588"/>
+    title == null ? <Image class="title" src={titleImg} alt="WikiAdventure" width="2171" height="128"/>
                   : <div class="title"><p>{{ title }}</p></div>
     }
     
@@ -62,6 +62,7 @@ const { title } = Astro.props;
     position: absolute;
     bottom: 2%;
     height: 1em;
+    width: auto;
     transform: scale3d(1,1,1);
     animation: 6s ease-out 0.8s logo-show-in-blur-fade-in;
     will-change: transform;

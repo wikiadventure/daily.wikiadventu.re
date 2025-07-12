@@ -75,7 +75,7 @@ const { t } = useTranslations(lang, translations);
 ---
 
 <!doctype html>
-<html>
+<html lang={lang}>
 	<head>
 		<title>Daily Wiki Adventure</title>
 		<meta charset="UTF-8" />
@@ -122,7 +122,7 @@ const { t } = useTranslations(lang, translations);
 				<LogoShowIn />
 				<CompactLangSwitch url={Astro.url} client:load />
 				<ThemePicker client:load />
-				<h1>Daily</h2>
+				<h2>Daily</h2>
 				<p>{t("explanation")}</p>
 				<!-- <p>{{ t("shortcut" + ($q.platform.is.mobile ? "Mobile" : "")) }}</p> -->
 				<form>
@@ -140,20 +140,6 @@ const { t } = useTranslations(lang, translations);
 						<StartButton lang={lang} client:load></StartButton>
 					</div>
 				</form>
-				<!-- <section title="contribution">
-					<div>
-						<p>{t("contribution.discord")}</p>
-						<discord-btn/>
-					</div>
-					<div>
-						<p>{t("contribution.github")}</p>
-						<github-btn/>
-					</div>
-					<div>
-						<p>{t("contribution.kofi")}</p>
-						<kofi-btn/>
-					</div>
-				</section> -->
 			</section>
 			<section class="Home play">
 

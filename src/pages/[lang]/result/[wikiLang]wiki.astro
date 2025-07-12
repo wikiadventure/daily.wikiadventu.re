@@ -88,7 +88,7 @@ const ogDescription = `${t('ogDescription')} ${startPage} ${t('to')} ${endPage}`
 ---
 
 <!doctype html>
-<html>
+<html lang={lang}>
 	<head>
 		<title>Daily Wiki Adventure</title>
 		<meta charset="UTF-8" />
@@ -132,23 +132,12 @@ const ogDescription = `${t('ogDescription')} ${startPage} ${t('to')} ${endPage}`
 	<body>
 		<main class="daily-result">
             <CompactLangSwitch url={Astro.url} client:load/>
-            <!-- <theme-switch class="absolute-top-right q-ma-sm" /> -->
             <LogoShowIn />
 			<ThemePicker client:load />
             <h2>Daily</h2>
             <h3>{ startPage } → { endPage }</h3>
-			<!-- t('linkInTime', path.length-1) -->
             <p>{ path.length-1 } { path.length > 1 ? t('linksInTime') : t('linkInTime') } { formatTime }</p>
             <div class="action">
-                <!-- <q-btn v-if="isSupported" push @click="shareResult">
-                    {{ t('share') }} <mdi-share-variant/>
-                </q-btn>
-                <q-btn push @click="copyLink">
-                    {{ t('copyShare') }} <mdi-share-variant/>
-                </q-btn>
-                <q-btn push class="action-btn" to="/">
-                    {{ t('play') }} <mdi-play/>
-                </q-btn> -->
 				<a  href={`/${lang}?wikiLang=${wikiLang}&startPage=${encodeURIComponent(path.at(0)?.replaceAll(" ", "_")?? "")}&endPage=${encodeURIComponent(path.at(-1)?.replaceAll(" ", "_")?? "")}`}>
 					Play this daily
 				</a>	

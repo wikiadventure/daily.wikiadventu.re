@@ -13,7 +13,7 @@ export function WikiStartPageInput() {
     );
     
     return (
-        <WikiTitleInput wikiPreview={startPage} setWikiPreview={setStartPage} wikiLang={wikiLang} />
+        <WikiTitleInput wikiPreview={startPage} setWikiPreview={setStartPage} wikiLang={wikiLang} inputAriaLabel="Start page input"/>
     );
 }
 
@@ -27,7 +27,7 @@ export function WikiEndPageInput() {
     );
     
     return (
-        <WikiTitleInput wikiPreview={endPage} setWikiPreview={setEndPage} wikiLang={wikiLang} />
+        <WikiTitleInput wikiPreview={endPage} setWikiPreview={setEndPage} wikiLang={wikiLang} inputAriaLabel="End page input"/>
     );
 }
 
