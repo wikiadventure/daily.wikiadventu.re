@@ -1,7 +1,7 @@
+import "./wikiPreview.css";
 import type { WikiContentPreview } from "@/composables/useWiki";
 import { WikiThumbnail } from "../wikiThumbnail/wikiThumbnail";
 import type { ComponentProps, DOMAttributes } from "react";
-import "./wikiPreview.css";
 
 type WikiPreviewProps =  DOMAttributes<HTMLDivElement> & ComponentProps<"div"> & {
     wikiContentPreview: WikiContentPreview | null

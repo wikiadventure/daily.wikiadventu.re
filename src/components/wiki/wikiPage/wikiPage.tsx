@@ -5,6 +5,7 @@ import wikiPageCssString from "./wikiPage.css?inline";
 import type { LangCode } from "@/i18n/lang";
 import { useMount } from "@/composables/useMount";
 import { useUpdate } from "@/composables/useUpdate";
+import { useThemeStore } from "@/composables/useTheme";
 
 interface WikiPageProps {
     disable: boolean;
@@ -185,18 +186,25 @@ export function WikiPage({ disable, title, onWikiLink, initialPage, wikiLang}:Wi
         "vector-toc-available",
         "vector-animations-ready",
         "ve-not-available",
-        "skin-theme-clientpref-os",
+        // "skin-theme-clientpref-os",
         // "skin-theme-clientpref-night",
     ];
 
     const minervaHtmlClasses = [
-        "skin-theme-clientpref-os",
+        // "skin-theme-clientpref-os",
         "mf-expand-sections-clientpref-0",
         "mf-font-size-clientpref-small",
         "mw-mf-amc-clientpref-0",
     ];
 
     const htmlClasses = isMobile ? minervaHtmlClasses : vectorHtmlClasses;
+    const usedTheme = useThemeStore.getState().theme;
+    htmlClasses.push(
+        usedTheme == "os"    ? "skin-theme-clientpref-os" :
+        usedTheme == "dark"  ? "skin-theme-clientpref-night" :
+        usedTheme == "light" ? "skin-theme-clientpref-day" :
+        ""
+    );
 
     useMount(() => {
 

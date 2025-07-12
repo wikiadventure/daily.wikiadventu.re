@@ -9,7 +9,7 @@ interface Props {
 const { beforeTitle, wikiPreview } = Astro.props;
 ---
 
-<div class="wiki-preview">
+<div class="wiki-preview-astro">
     {  
     wikiPreview?.thumbnail != null ?
     <div class="img">
@@ -29,7 +29,7 @@ const { beforeTitle, wikiPreview } = Astro.props;
     <p>{wikiPreview?.description || "???"}</p>
 </div>
 <style is:global>
-.wiki-preview {
+.wiki-preview-astro {
     display: grid;
     grid-template-columns: 80px 1fr;
     grid-template-rows: auto auto;

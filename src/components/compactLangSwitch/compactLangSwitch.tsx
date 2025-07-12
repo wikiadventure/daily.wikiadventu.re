@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
 import "./compactLangSwitch.css";
+import React, { useRef } from "react";
 import IconTranslate from "~icons/material-symbols/translate-rounded";
 import { langs, type LangCode } from "../../i18n/lang";
 
@@ -52,6 +52,7 @@ const CompactLangSwitch: React.FC<CompactLangSwitchProps> = ({ url }) => {
               ref={(el) => {if (el) {
                   aRefs.current[index] = el;
               }}}
+              {...(locale == k ? { "data-current-lang": true } : {})}
               hrefLang={k}
               href={getUrlForLangCode(k)}
             >

@@ -1,7 +1,7 @@
 "use client";
+import "./WikiPlayground.css";
 import { useGamePlayStore, type GamePlayState } from "@/composables/gamePlay";
 import { WikiPage } from "../wikiPage/wikiPage";
-import "./WikiPlayground.css";
 import { lang } from "@/i18n/currentLang";
 import { memo, useEffect, useRef } from "react";
 import type { LangCode } from "@/i18n/lang";
@@ -97,7 +97,7 @@ export function WikiPlayground() {
     function onWin() {
         const { wikiLang, history, timerTime: time, timerPause } = useGamePlayStore.getState();
         timerPause();
-        window.location.href = `/${lang}/result/${wikiLang}wiki?time=${time}&path=${history.map(s => encodeURIComponent(s)).join("|")}`;
+        window.location.href = `/${lang}/result/${wikiLang}wiki?time=${time}&path=${history.map(s => encodeURIComponent(s.replaceAll(" ", "_"))).join("|")}`;
     }
 
     

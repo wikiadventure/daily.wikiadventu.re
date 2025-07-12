@@ -1,8 +1,8 @@
 "use client"
+import "./startButton.css";
 import {  useGameFormStore, type GameFormState } from "@/composables/gameForm"
 import { type LangCode } from "@/i18n/lang";
 import { useTranslations, type Translations } from "@/composables/useTranslation";
-import "./startButton.css";
 import { useGamePlayStore } from "@/composables/gamePlay";
 import { createRoot } from "react-dom/client";
 import { useState, useEffect } from "react";

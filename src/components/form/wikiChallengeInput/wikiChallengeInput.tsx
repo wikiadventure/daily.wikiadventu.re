@@ -1,7 +1,7 @@
+import "./wikiChallengeInput.css";
 import { WikiTitleInput } from "@/components/wiki/wikiTitleInput/WikiTitleInput";
 import { useGameFormStore, type GameFormState } from "@/composables/gameForm";
 import { useShallow } from 'zustand/react/shallow';
-import "./wikiChallengeInput.css";
 
 export function WikiStartPageInput() {
     const { wikiLang, startPage, setStartPage } = useGameFormStore(

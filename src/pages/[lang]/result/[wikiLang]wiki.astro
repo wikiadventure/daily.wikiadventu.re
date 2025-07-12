@@ -6,6 +6,7 @@ import  { loadPreviews } from "@/composables/useWiki";
 import WikiPreview from "@/components/wiki/wikiPreview/wikiPreview.astro";
 import { langsKey, type LangCode } from "@/i18n/lang";
 import { useTranslations, type Translations } from "@/composables/useTranslation";
+import { ThemePicker } from "@/components/form/themePicker/themePicker";
 export const prerender = false; 
 
 const { lang: rawLang, wikiLang: rawWikiLang } = Astro.params;
@@ -21,7 +22,7 @@ const wikiLang = rawWikiLang as LangCode;
 const url = Astro.url;
 
 const time = parseInt(url.searchParams.get("time") ?? "0");
-const path = (url.searchParams.get("path") ?? "").split("|").map(s=>decodeURIComponent(s));
+const path = (url.searchParams.get("path") ?? "").split("|").map(s=>decodeURIComponent(s).replaceAll("_"," "));
 const path50 = path.length > 50 ? path.slice(0,25).concat(path.slice(path.length-25)) : path;
 
 const min = Math.floor(time/60)
@@ -133,6 +134,7 @@ const ogDescription = `${t('ogDescription')} ${startPage} ${t('to')} ${endPage}`
             <CompactLangSwitch url={Astro.url} client:load/>
             <!-- <theme-switch class="absolute-top-right q-ma-sm" /> -->
             <LogoShowIn />
+			<ThemePicker client:load />
             <h2>Daily</h2>
             <h3>{ startPage } → { endPage }</h3>
 			<!-- t('linkInTime', path.length-1) -->
@@ -147,6 +149,9 @@ const ogDescription = `${t('ogDescription')} ${startPage} ${t('to')} ${endPage}`
                 <q-btn push class="action-btn" to="/">
                     {{ t('play') }} <mdi-play/>
                 </q-btn> -->
+				<a  href={`/${lang}?wikiLang=${wikiLang}&startPage=${encodeURIComponent(path.at(0)?.replaceAll(" ", "_")?? "")}&endPage=${encodeURIComponent(path.at(-1)?.replaceAll(" ", "_")?? "")}`}>
+					Play this daily
+				</a>	
             </div>
             <section class="path">
 				{
@@ -164,6 +169,10 @@ const ogDescription = `${t('ogDescription')} ${startPage} ${t('to')} ${endPage}`
 			</section>
 			}
 		</main>
+		<script>
+			import { useThemeStore } from "../../../composables/useTheme";
+			useThemeStore.getState().initTheme();
+		</script>
 	</body>
 </html>
 <style is:global>
@@ -176,6 +185,39 @@ html, body {
   padding: 0;
   height: 100vh;
   font-family: sans-serif;
+}
+
+
+
+body {
+	--dark-back-color: #000;
+	--dark-back-focus-color: #222;
+	--dark-front-color: #eee;
+	--dark-box-shadow: 0 1px 5px rgba(0, 195, 205, 0.2),0 2px 2px rgba(0, 195, 205, 0.15),0 3px 1px -2px rgba(0, 195, 205, 0.125);
+
+	--light-back-color: #fff;
+	--dark-front-focus-color: #ddd;
+	--light-front-color: #000;
+	--light-box-shadow: 0 1px 5px #0003,0 2px 2px #00000024,0 3px 1px -2px #0000001f;
+}
+
+body[data-theme^="dark"] {
+  --back-color: var(--dark-back-color);
+  --back-focus-color: var(--dark-back-focus-color);
+  --front-color: var(--dark-front-color);
+  --box-shadow: var(--dark-box-shadow);
+}
+
+body[data-theme^="light"] {
+  --back-color: var(--light-back-color);
+  --back-focus-color: var(--light-back-focus-color);
+  --front-color: var(--light-front-color);
+  --box-shadow: var(--light-box-shadow);
+}
+
+body {
+	background: var(--back-color);
+	color: var(--front-color);
 }
 
 
@@ -200,6 +242,12 @@ main {
 		position: absolute;
 		top: 15px;
 		left: 15px;
+	}
+
+	.theme-picker.select {
+		position: absolute;
+		top: 15px;
+		right: 30px;
 	}
 
     .logo-show-in {
@@ -264,8 +312,8 @@ main {
         font-size: 2em;
     }
 
-    .wiki-preview {
-        background: #cdfdfa;
+    .wiki-preview-astro {
+        background: var(--back-focus-color);
         border-radius: 15px;
     }
 

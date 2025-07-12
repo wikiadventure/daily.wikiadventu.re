@@ -6,8 +6,9 @@ button.daily-date-picker {
     align-items: center;
     justify-content: space-around;
     border-radius: 5px;
-    border: 1px solid #000;
-    background: #eee;
+    border: 1px solid var(--front-color);
+    color: var(--front-color);
+    background: var(--back-color);
     > svg {
         flex: 0 0 2rem;
     }

@@ -1,9 +1,9 @@
 "use client"
+import "./wikiLangSelect.css";
 import { dailyAvailableIn, defaultWikiLang, useGameFormStore, type GameFormState } from "@/composables/gameForm";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../ui/select";
 import { langs, type LangCode } from "@/i18n/lang";
 import { useTranslations, type Translations } from "@/composables/useTranslation";
-import "./wikiLangSelect.css";
 import { useMount } from "@/composables/useMount";
 import { useShallow } from "zustand/react/shallow";
 
@@ -18,11 +18,7 @@ export function WikiLangSelect({ lang }: { lang: LangCode }) {
 
     // Used to load default state after hydration
     useMount(() => {
-        if (localStorage && localStorage.getItem("wikiLangStorage")) {
-            JSON.parse(localStorage.getItem("wikiLangStorage") as string).wikiLang
-        } else {
-            if (wikiLang == null) setWikiLang(defaultWikiLang());
-        }
+        if (wikiLang == null) setWikiLang(defaultWikiLang());
     });
 
     type WikiLangSelectTranslation = {

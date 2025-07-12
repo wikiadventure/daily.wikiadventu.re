@@ -7,10 +7,6 @@
         "i d d";
     padding: 10px 0 10px 10px;
 
-    &:last-child {
-        border: none;
-    }
-
     backdrop-filter: blur(2px);
     background: #0001;
 

@@ -1,4 +1,5 @@
 "use client"
+import "./dailyDatePicker.css";
 import { CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -7,7 +8,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import "./dailyDatePicker.css";
 import { useGameFormStore, type GameFormState } from "@/composables/gameForm";
 import type { LangCode } from "@/i18n/lang";
 import { enUS as en, fr, de, eo, type Locale } from "react-day-picker/locale";
