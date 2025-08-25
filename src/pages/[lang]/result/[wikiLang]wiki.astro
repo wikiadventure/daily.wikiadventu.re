@@ -51,7 +51,9 @@ type ResultTranslation = {
 	linksInTime: string,
 	linkInTime: string,
 	ogDescription: string,
-	to: string
+	to: string,
+	checkSixDegrees: string,
+	playDaily: string
 };
 
 const translations: Translations<ResultTranslation> = {
@@ -59,25 +61,33 @@ const translations: Translations<ResultTranslation> = {
 		linkInTime: "link in",
 		linksInTime: "links in",
 		ogDescription: "Result of my epic on my Daily Wiki Adventure from",
-		to: "to"
+		to: "to",
+		checkSixDegrees: "Check all shortest paths possible on",
+		playDaily: "Play this daily",
 	},
 	fr: {
 		linkInTime: "lien en",
 		linksInTime: "liens en",
 		ogDescription: "Résultat de mon épopée sur mon Daily Wiki Adventure de",
-		to: "à"
+		to: "à",
+		checkSixDegrees: "Regarde tous les chemins les plus courts sur",
+		playDaily: "Joue ce daily"
 	},
 	de: {
-		linkInTime: "link in",
-		linksInTime: "links in",
-		ogDescription: "Ergebnis meines Epos auf meinem Daily Wiki Adventure from",
-		to: "nach"
+		linkInTime: "Link in",
+		linksInTime: "Links in",
+		ogDescription: "Ergebnis meines Epos auf meinem Daily Wiki Adventure von",
+		to: "nach",
+		checkSixDegrees: "Überprüfe alle kürzestmöglichen Pfade auf",
+		playDaily: "Spiele dieses Daily",
 	},
 	eo: {
 		linkInTime: "ligilo en",
 		linksInTime: "ligiloj en",
-		ogDescription: "Rezulto de mia epopeo en mia Daily Wiki Adventure from",
-		to: "al"
+		ogDescription: "Rezulto de mia epopeo sur mia Daily Vikiaventuro de",
+		to: "al",
+		checkSixDegrees: "Kontrolu ĉiujn plej mallongajn vojojn sur",
+		playDaily: "Ludu ĉi tiun daily",
 	},
 };
 
@@ -109,7 +119,7 @@ const ogDescription = `${t('ogDescription')} ${startPage} ${t('to')} ${endPage}`
 		<meta name="twitter:title" content="Daily Wiki Adventure" />
 		<meta
 			name="twitter:description"
-			content="Result of my epic on my daily wiki adventure"
+			content={ogDescription}
 		/>
 		<meta
 			name="twitter:image"
@@ -138,8 +148,9 @@ const ogDescription = `${t('ogDescription')} ${startPage} ${t('to')} ${endPage}`
             <h3>{ startPage } → { endPage }</h3>
             <p>{ path.length-1 } { path.length > 1 ? t('linksInTime') : t('linkInTime') } { formatTime }</p>
             <div class="action">
-				<a  href={`/${lang}?wikiLang=${wikiLang}&startPage=${encodeURIComponent(path.at(0)?.replaceAll(" ", "_")?? "")}&endPage=${encodeURIComponent(path.at(-1)?.replaceAll(" ", "_")?? "")}`}>
-					Play this daily
+				<a  class="play-daily"
+					href={`/${lang}?wikiLang=${wikiLang}&startPage=${encodeURIComponent(path.at(0)?.replaceAll(" ", "_")?? "")}&endPage=${encodeURIComponent(path.at(-1)?.replaceAll(" ", "_")?? "")}`}>
+					{t('playDaily')}
 				</a>	
             </div>
             <section class="path">
@@ -153,7 +164,7 @@ const ogDescription = `${t('ogDescription')} ${startPage} ${t('to')} ${endPage}`
             </section>
 			{ startPageId != null && endPageId != null &&
 			<section class="six-degree">
-				<p>Check all shortest paths possible on</p>
+				<p>{t('checkSixDegrees')}</p>
 				<a href={`https://six-degrees.wikiadventu.re/${wikiLang}/${startPageId}/${endPageId}`}>six-degrees.wikiadventu.re</a>
 			</section>
 			}
@@ -252,17 +263,28 @@ main {
     }
 
     section.path {
-        width: 100%;
+        width: 100%;		
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 5px;
         gap: 15px;
-        >a {
+
+		.wiki-preview-astro {
+				border: 1px solid transparent;
+		}
+        > a {
             text-decoration: none;
             color: unset;
             width: max(500px, 50%);
-            max-width: 100%;
+            max-width: 100%;		
+			border: 1px solid transparent;
+			&:is(:focus, :focus-visible) {
+				outline: none;
+				> .wiki-preview-astro {
+					border: 1px solid cyan;
+				}
+			}
         }
         > a:first-child:nth-last-child(50) ~ a:nth-child(26):before {
             content: "...";
@@ -304,6 +326,34 @@ main {
     .wiki-preview-astro {
         background: var(--back-focus-color);
         border-radius: 15px;
+    }
+
+	a.play-daily {
+        border: none;
+        border-radius: 10px;
+        background: #eee;
+        color: #000;
+        font-weight: bolder;
+        font-size: 1.4em;
+        padding: 15 35px;
+        position: relative;
+		text-decoration: none;
+        &:active {
+            transform: translateY(10px);
+            &:after {
+                transform: translateY(0);
+            }
+        }
+        &:after {
+            z-index: -1;
+            content: "";
+            position: absolute;
+            display: block;
+            inset: 0;
+            transform: translateY(10px);
+            background: #ddd;
+            border-radius: 10px;
+        }
     }
 
 }

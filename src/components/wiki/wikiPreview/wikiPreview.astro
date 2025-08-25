@@ -1,5 +1,6 @@
 ---
 import type { WikiContentPreview } from "../../../composables/useWiki";
+import { WikiThumbnail } from "../wikiThumbnail/wikiThumbnail";
 
 interface Props {
     beforeTitle?: string;
@@ -10,21 +11,7 @@ const { beforeTitle, wikiPreview } = Astro.props;
 ---
 
 <div class="wiki-preview-astro">
-    {  
-    wikiPreview?.thumbnail != null ?
-    <div class="img">
-        <img
-            src={wikiPreview?.thumbnail?.source}
-            width={wikiPreview?.thumbnail?.width}
-            height={wikiPreview?.thumbnail?.height}
-        />
-    </div>
-       :
-    <div class="img none">
-        ?
-    </div>
-    }
-
+    <WikiThumbnail thumbnail={wikiPreview.thumbnail ?? null} />
     <h3>{(beforeTitle ?? "") + (wikiPreview?.title || "???")}<slot /></h3>
     <p>{wikiPreview?.description || "???"}</p>
 </div>
@@ -37,30 +24,11 @@ const { beforeTitle, wikiPreview } = Astro.props;
         "i t t"
         "i d d";
     padding: 10px;
-    &:last-child {
-        border: none;
+
+    &:is(:focus, :focus-visible) {
+        outline: none;
     }
 
-    .img {
-        display: grid;
-        grid-area: i;
-        width: 80px;
-        height: 80px;
-        background: hsla(0, 0%, 100%, 0.5);
-        place-items: center;
-        background: none;
-        border-radius: 3px;
-    }
-    .img > img {
-        max-width: 80px;
-        max-height: 80px;
-        object-fit: cover;
-        border-radius: 3px;
-    }
-
-    .img.none {
-        border: 1px solid grey;
-    }
     h3 {
         grid-area: t;
         margin: 5px 15px;

@@ -13,7 +13,7 @@
     filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff);
 }
 
-.wiki-thumbnail:not(.no-img):hover {
+.wiki-thumbnail:not(.no-img):hover, :is(:focus, :focus-visible)  .wiki-thumbnail:not(.no-img) {
     z-index: 5;
     isolation: isolate;
 }

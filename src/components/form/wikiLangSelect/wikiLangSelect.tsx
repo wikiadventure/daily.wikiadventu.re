@@ -22,21 +22,26 @@ export function WikiLangSelect({ lang }: { lang: LangCode }) {
     });
 
     type WikiLangSelectTranslation = {
-        wikiLang: string
+        wikiLang: string,
+        ariaLabel: string
     }
 
     const translations:Translations<WikiLangSelectTranslation> = {
         en: {
-            wikiLang: "Wiki language"
+            wikiLang: "Wiki language",
+            ariaLabel: "Wiki language select"
         },
         fr: {
-            wikiLang: "Langue du Wiki"
+            wikiLang: "Langue du Wiki",
+            ariaLabel: "Sélection de la langue du Wiki"
         },
         de: {
-            wikiLang: "Sprache des Wiki"
+            wikiLang: "Sprache des Wiki",
+            ariaLabel: "Wiki-Sprachauswahl"
         },
         eo: {
-            wikiLang: "Idioma Wiki"
+            wikiLang: "Idioma Wiki",
+            ariaLabel: "Elekto de lingvo de Vikio"
         },
     };
 
@@ -44,7 +49,7 @@ export function WikiLangSelect({ lang }: { lang: LangCode }) {
     
     return (
         <Select value={wikiLang} onValueChange={(value) => setWikiLang(value as LangCode)} >
-            <SelectTrigger className="wiki-lang-select" aria-label="Wiki language select">
+            <SelectTrigger className="wiki-lang-select" aria-label={t("ariaLabel")}>
                 <label htmlFor="wikiLangInput">{t("wikiLang")}</label>
                 {wikiLang && <SelectValue id="wikiLangInput"/>}
             </SelectTrigger>

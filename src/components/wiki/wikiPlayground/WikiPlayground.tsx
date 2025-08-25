@@ -7,11 +7,37 @@ import { memo, useEffect, useRef } from "react";
 import type { LangCode } from "@/i18n/lang";
 import { useMount } from "@/composables/useMount";
 import { useShallow } from "zustand/react/shallow";
+import { useTranslations, type Translations } from "@/composables/useTranslation";
+
+type WikiPlaygroundTranslation = {
+    find: string,
+    endPage: string
+}
+
+const translations:Translations<WikiPlaygroundTranslation> = {
+    en: {
+        find: "Find",
+        endPage: "The end page"
+    },
+    fr: {
+        find: "Trouve",
+        endPage: "La page de fin"
+    },
+    de: {
+        find: "Finde",
+        endPage: "Die Endseite"
+    },
+    eo: {
+        find: "Trovu",
+        endPage: "La finpaĝo"
+    },
+};
 
 function WikiStartEndPagesRaw(
     { startPage, endPage, onWikiLink, wikiLang }:
         { startPage: string, endPage: string, onWikiLink: (s: string) => void, wikiLang:LangCode }
 ) {
+    const { t } = useTranslations(lang, translations);
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -41,14 +67,14 @@ function WikiStartEndPagesRaw(
         <div className="scroll-snap-dual-panel" ref={containerRef}>
             <WikiPage
                 disable={false}
-                title={"find : " + endPage}
+                title={ t('find') + " : " + endPage}
                 onWikiLink={(e) => onWikiLink(e)}
                 initialPage={startPage}
                 wikiLang={wikiLang}
             />
             <WikiPage
                 disable={true}
-                title="End page!"
+                title={t('endPage')}
                 onWikiLink={() => { }}
                 initialPage={endPage}
                 wikiLang={wikiLang}
@@ -65,6 +91,8 @@ const WikiStartEndPages = memo(WikiStartEndPagesRaw, (p, n) => {
     // p.onWikiLink != n.onWikiLink && console.log("onWikiLink DIFFERENT : ", p.onWikiLink, n.onWikiLink);
     // return true;
 });
+
+
 
 export function WikiPlayground() {
     const {
